@@ -1,0 +1,140 @@
+﻿/*--------------------------------------------------------------------- Header styles-------------------------------------------------------------- */
+.header {
+    background-color: #333; /* Màu nền */
+    color: #fff; /* Màu chữ */
+    padding: 10px; /* Khoảng cách giữa nội dung và khung */
+    display: flex; /* Hiển thị các phần tử trong một hàng ngang */
+    justify-content: space-between; /* Căn chỉnh nội dung theo cả hai bên */
+    align-items: center; /* Căn chỉnh theo chiều dọc giữa các phần tử con */
+}
+
+#hotline {
+    font-size: 14px; /* Cỡ chữ */
+}
+
+#tenweb {
+    font-size: 45px; /* Cỡ chữ */
+    margin: 0; /* Loại bỏ khoảng trống mặc định của h1 */
+    color:yellow;
+}
+
+#navigation {
+    list-style: none; /* Ẩn dấu chấm danh sách */
+    display: flex; /* Hiển thị các mục danh sách theo hàng ngang */
+    margin-left:190px;
+}
+
+    #navigation li {
+        margin-right: 20px; /* Khoảng cách giữa các mục danh sách */
+    }
+
+    #navigation a {
+        text-decoration: none; /* Loại bỏ gạch chân trên liên kết */
+        color: #fff; /* Màu chữ */
+    }
+
+
+.header button {
+    background-color: #007bff; /* Màu nền của nút */
+    color: #fff; /* Màu chữ trên nút */
+    border: none; /* Loại bỏ viền của nút */
+    padding: 10px 20px; /* Kích thước nút */
+    border-radius: 5px; /* Làm tròn góc của nút */
+    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+.header button:hover {
+    background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
+}
+
+
+/*------------------------------------------------------------------------ CSS cho phần body --------------------------------------------------------*/
+.body {
+    background-color: #f0f0f0; /* Màu nền của phần body */
+}
+
+.search-bar {
+    background-color: #fff; /* Màu nền của phần tìm kiếm */
+    padding: 20px; /* Khoảng cách giữa nội dung và khung */
+}
+
+#timkiem {
+    display: flex; /* Hiển thị các phần tử trong một hàng ngang */
+}
+
+.search-input {
+    width: 30%; /* Chiều rộng của ô tìm kiếm */
+    padding: 10px; /* Khoảng cách trong ô tìm kiếm */
+    border: 1px solid #ddd; /* Viền ô tìm kiếm */
+    border-radius: 5px; /* Độ cong góc của ô tìm kiếm */
+}
+
+.search-button {
+    background-color: #333; /* Màu nền của nút tìm kiếm */
+    color: #fff; /* Màu chữ trên nút */
+    border: none; /* Không viền nút */
+    padding: 10px 20px; /* Khoảng cách trong nút */
+    border-radius: 5px; /* Độ cong góc của nút */
+    cursor: pointer; /* Con trỏ thay đổi khi rê chuột lên nút */
+}
+
+#tendanhmuc {
+    font-size: 18px; /* Cỡ chữ */
+    margin-top: 20px; /* Khoảng cách từ trên xuống */
+}
+
+/* CSS cho mẫu đăng ký và đăng nhập */
+
+
+
+.form {
+    display: none; /* Ẩn mẫu mặc định khi trang tải */
+    background-color: #f5f5f5; /* Màu nền của mẫu */
+    padding: 20px;
+    border: 1px solid #ccc; /* Viền xung quanh mẫu */
+    border-radius: 5px; /* Làm tròn góc của mẫu */
+    width: 350px; /* Độ rộng của mẫu */
+    margin: 0 auto; /* Căn giữa mẫu */
+    text-align: center; /* Canh giữa nội dung trong mẫu */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+}
+
+/* CSS cho nút thoát */
+.exit-button {
+    background-color:red; /* Màu nền nút */
+    color: #fff; /* Màu chữ trên nút */
+    border: none; /* Loại bỏ viền của nút */
+    padding: 10px 20px; /* Kích thước nút */
+    border-radius: 5px; /* Làm tròn góc của nút */
+    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+    margin-top: 10px; /* Khoảng cách giữa nút và các trường nhập */
+}
+
+/* CSS cho input fields */
+.form input {
+    display: block; /* Hiển thị mỗi trường nhập trên một dòng riêng biệt */
+    width: 100%; /* Độ rộng 100% để điền vào mẫu */
+    padding: 10px; /* Khoảng cách bên trong trường nhập */
+    margin:0 auto; /* Canh giữa các trường nhập theo chiều ngang */
+    margin-bottom: 10px; /* Khoảng cách dưới mỗi trường nhập */
+    border: 1px solid #ccc; /* Viền của trường nhập */
+    border-radius: 5px; /* Làm tròn góc của trường nhập */
+    width:300px;
+}
+
+    /* CSS cho nút Đăng ký và Đăng nhập */
+    .form input[type="submit"] {
+        background-color: #007bff; /* Màu nền của nút Đăng ký và Đăng nhập */
+        color: #fff; /* Màu chữ trên nút */
+        border: none; /* Loại bỏ viền của nút */
+        cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
+    }
+
+        .form input[type="submit"]:hover {
+            background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
+        }
+
+    /* CSS cho các placeholder trong input fields */
+    .form input::placeholder {
+        color: #999; /* Màu chữ của placeholder (chữ mô tả) trong trường nhập */
+    }
