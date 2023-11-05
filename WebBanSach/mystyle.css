@@ -40,18 +40,6 @@
     }
 
 
-.header button {
-    background-color: #007bff; /* Màu nền của nút */
-    color: #fff; /* Màu chữ trên nút */
-    border: none; /* Loại bỏ viền của nút */
-    padding: 10px 20px; /* Kích thước nút */
-    border-radius: 5px; /* Làm tròn góc của nút */
-    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
-    margin-right: 10px; /* Khoảng cách giữa các nút */
-}
-.header button:hover {
-    background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
-}
 
 
 /*------------------------------------------------------------------------ CSS cho phần body --------------------------------------------------------*/
@@ -105,42 +93,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
 }
 
-/* CSS cho nút thoát */
-.exit-button {
-    background-color:red; /* Màu nền nút */
-    color: #fff; /* Màu chữ trên nút */
-    border: none; /* Loại bỏ viền của nút */
-    padding: 10px 20px; /* Kích thước nút */
-    border-radius: 5px; /* Làm tròn góc của nút */
-    cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
-    margin-top: 10px; /* Khoảng cách giữa nút và các trường nhập */
-}
 
-/* CSS cho input fields */
-.form input {
-    display: block; /* Hiển thị mỗi trường nhập trên một dòng riêng biệt */
-    width: 100%; /* Độ rộng 100% để điền vào mẫu */
-    padding: 10px; /* Khoảng cách bên trong trường nhập */
-    margin:0 auto; /* Canh giữa các trường nhập theo chiều ngang */
-    margin-bottom: 10px; /* Khoảng cách dưới mỗi trường nhập */
-    border: 1px solid #ccc; /* Viền của trường nhập */
-    border-radius: 5px; /* Làm tròn góc của trường nhập */
-    width:300px;
-}
 
-    /* CSS cho nút Đăng ký và Đăng nhập */
-    .form input[type="submit"] {
-        background-color: #007bff; /* Màu nền của nút Đăng ký và Đăng nhập */
-        color: #fff; /* Màu chữ trên nút */
-        border: none; /* Loại bỏ viền của nút */
-        cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
-    }
 
-        .form input[type="submit"]:hover {
-            background-color: #0056b3; /* Màu nền của nút khi di chuột qua */
-        }
-
-    /* CSS cho các placeholder trong input fields */
-    .form input::placeholder {
-        color: #999; /* Màu chữ của placeholder (chữ mô tả) trong trường nhập */
+  
+    .thongtinmuaban{
+        background-color:burlywood;
+        width:1500px;
+        height:1000px;
     }

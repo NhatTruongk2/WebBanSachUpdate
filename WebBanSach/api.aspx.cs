@@ -1,45 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
+using Newtonsoft.Json;
 
-namespace websach
+namespace TacGia
 {
-    public partial class api : Page
+    public partial class TacGiaAPI : Page
     {
-        void HandleChiTietDonHang(string action)
+        void HandleTacGia(string action)
         {
-            using (SqlConnection connection = new SqlConnection("your_connection_string_here"))
+            // Thay đổi chuỗi kết nối dựa trên cấu hình của bạn
+            string connectionString = "Data Source=LAPTOP-ECOVO9GP\\SQLEXPRESS;Initial Catalog=QuanLyBanSach;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (SqlCommand cmd = new SqlCommand("sp_ChiTietDonHang", connection))
+                using (SqlCommand cmd = new SqlCommand("sp_TacGia", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@action", SqlDbType.NVarChar, 20).Value = action;
 
-                    cmd.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
-                    cmd.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
-
-                    if (action == "Add" || action == "Edit")
+                    if (action == "Them" || action == "Sua")
                     {
-                        cmd.Parameters.Add("@SoLuong", SqlDbType.Int).Value = int.Parse(Request["SoLuong"]);
-                        cmd.Parameters.Add("@DonGia", SqlDbType.NChar, 10).Value = Request["DonGia"];
+                        cmd.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+                        cmd.Parameters.Add("@TenTacGia", SqlDbType.NVarChar, 255).Value = Request["TenTacGia"];
+                        cmd.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = Request["DiaChi"];
+                        cmd.Parameters.Add("@TieuSu", SqlDbType.NVarChar, 255).Value = Request["TieuSu"];
+                        cmd.Parameters.Add("@DienThoai", SqlDbType.NVarChar, 15).Value = Request["DienThoai"];
                     }
 
-                    cmd.Parameters.Add("@Action", SqlDbType.NVarChar, 50).Value = action;
+                    if (action == "TimKiem")
+                    {
+                        cmd.Parameters.Add("@TenTacGia", SqlDbType.NVarChar, 255).Value = Request["TenTacGia"];
+                    }
 
-                    string jsonResult = (string)cmd.ExecuteScalar();
-                    Response.Write(jsonResult);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+
+                        // Chuyển dữ liệu từ DataTable thành JSON
+                        string jsonResult = ConvertDataTableToJson(dataTable);
+
+                        Response.Write(jsonResult);
+                    }
                 }
             }
+        }
+
+        private string ConvertDataTableToJson(DataTable dataTable)
+        {
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    row.Add(column.ColumnName, dataRow[column]);
+                }
+                rows.Add(row);
+            }
+
+            return JsonConvert.SerializeObject(rows); // Sử dụng JsonConvert.SerializeObject từ JSON.NET
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             string action = Request["action"];
 
-            if (action == "Add" || action == "Edit" || action == "Delete" || action == "Search")
+            if (action == "Them" || action == "Sua" || action == "Xoa" || action == "TimKiem" || action == "LietKe")
             {
-                HandleChiTietDonHang(action);
+                HandleTacGia(action);
             }
         }
     }

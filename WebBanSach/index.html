@@ -14,7 +14,7 @@
 
 </head>
 <body>
-    
+
 
     <div class="header">
 
@@ -25,7 +25,7 @@
         <h1 id="tenweb">
             SachHay.Com
         </h1>
-
+       
 
         <ul id="navigation">
 
@@ -45,13 +45,17 @@
             </li>
         </ul>
 
-        <div class="button">
-            <button id="btn_dangky">Đăng ký</button>
-            <button id="btn_dangnhap">Đăng nhập</button>
+        <button class="btn btn-success" id="giohang">giỏ hàng</button>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary " id="btn_dangky">Đăng nhập</button>
+            <button type="button" class="btn btn-primary" id="btn_dangnhap">Đăng ký</button>
+
         </div>
 
     </div>
 
+   
 
     <div class="search-bar">
         <div id="timkiem">
@@ -61,77 +65,17 @@
 
     </div>
 
-    <div class="dangky-dangnhap">
-
-        <div id="form-dangky" class="form">
-            <h2>Đăng ký</h2>
-            <form>
-
-                <input type="text" id="hoten" name="hoten" required placeholder="Họ tên">
-
-                <input type="text" id="username-dangky" name="username-dangky" required placeholder="Tài khoản">
-
-                <input type="password" id="password-dangky" name="password-dangky" required placeholder="Mật khẩu">
-
-                <input type="text" id="email" name="email" required placeholder="email">
-
-                <input type="text" id="diachi" name="diachi" required placeholder="Địa chỉ">
-
-                <input type="number" id="dienthoai" name="dienthoai" required placeholder="Điện thoại">
-
-                <input type="text" id="gioitinh" name="gioitinh" required placeholder="Giới tính">
-
-                <input type="datetime" id="ngaysinh" name="ngaysinh" required placeholder="Ngày sinh">
-                <input type="submit" value="Đăng ký">
-                <button class="exit-button" id="exit-dangky">Thoát</button>
-            </form>
-        </div>
-
-        <div id="form-dangnhap" class="form">
-            <h2>Đăng nhập</h2>
-            <form>
 
 
-                <input type="text" id="username-dangnhap" name="username-dangnhap" required placeholder="Tài khoản">
-
-                <input type="password" id="password-dangnhap" name="password-dangnhap" required placeholder="Mật khẩu">
-                <input type="submit" value="Đăng nhập">
-                <button class="exit-button" id="exit-dangnhap">Thoát</button>
-            </form>
-        </div>
-
-        <script>
-            const btnDangKy = document.getElementById("btn_dangky");
-            const btnDangNhap = document.getElementById("btn_dangnhap");
-            const formDangKy = document.getElementById("form-dangky");
-            const formDangNhap = document.getElementById("form-dangnhap");
-            const exitDangKy = document.getElementById("exit-dangky");
-            const exitDangNhap = document.getElementById("exit-dangnhap");
-
-            btnDangKy.addEventListener("click", function () {
-                formDangKy.style.display = "block";
-                formDangNhap.style.display = "none";
-            });
-
-            btnDangNhap.addEventListener("click", function () {
-                formDangNhap.style.display = "block";
-                formDangKy.style.display = "none";
-            });
-
-            exitDangKy.addEventListener("click", function () {
-                formDangKy.style.display = "none";
-            });
-
-            exitDangNhap.addEventListener("click", function () {
-                formDangNhap.style.display = "none";
-            });
-        </script>
-
-    </div>
 
 
-    <button class="btn btn-primary" id="quanlysach"> Quản Lý </button>
-   
+
+    <button class="btn btn-info" id="quanlysach"> Quản Lý </button>
+
+
+    <div class="thongtinmuaban"></div>
+
+
 
 </body>
 </html>
