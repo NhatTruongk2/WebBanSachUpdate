@@ -1,14 +1,22 @@
 ﻿$(document).ready(function () {
-
     const api='/api.aspx'
+    $("#quanlysach").click(function () {
+        $.confirm({
+            title: "Quản lý sách ",
+            content: "gsdfgsf",
+            columnClass: 'large',
 
-    $('#nut').click(function () {
-        alert($.post(api,
-            {
-            action: 'Search'
-        },
-            funtion(data){
-            alert(data)
-        }))
+
+            onContentReady: function () {
+               
+            $.post(api,
+                {
+                    action: 'Delete'
+                }, function (data) {
+                    alert(data)
+                }          )
+            }
+        });
     });
 });
+

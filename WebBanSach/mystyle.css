@@ -8,6 +8,12 @@
     align-items: center; /* Căn chỉnh theo chiều dọc giữa các phần tử con */
 }
 
+.test{
+    background-color:aqua;
+    width:1000px;
+    height:500px;
+}
+
 #hotline {
     font-size: 14px; /* Cỡ chữ */
 }
