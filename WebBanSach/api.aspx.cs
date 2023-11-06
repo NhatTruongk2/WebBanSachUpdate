@@ -30,7 +30,6 @@ namespace TacGia
                         cmd.Parameters.Add("@DienThoai", SqlDbType.NVarChar, 15).Value = Request["DienThoai"];
                     }
 
-                    if (action == "TimKiem")
                     {
                         cmd.Parameters.Add("@TenTacGia", SqlDbType.NVarChar, 255).Value = Request["TenTacGia"];
                     }
