@@ -1,25 +1,5 @@
-﻿$(document).ready(function () {
-    $("#quanlysach").click(function () {
-        // Tạo một bảng và các dòng
-        var table = $("<table>").addClass("table");
-        var headerRow = $("<tr>");
-        var header1 = $("<th>").text("Header 1");
-        var header2 = $("<th>").text("Header 2");
-        headerRow.append(header1, header2);
-        table.append(headerRow);
+﻿
 
-
-
-
-
-        // Hiển thị bảng trong hộp thoại confirm
-        $.confirm({
-            title: "Dữ liệu và thông tin sách",
-            content: table, // Sử dụng bảng là nội dung của hộp thoại
-            columnClass: 'large'
-        });
-    });
-});
 
 
 $(document).ready(function () {
@@ -123,18 +103,117 @@ $(document).ready(function () {
             }
         });
     });
-});
 
 
 
-
-$(document).ready(function () {
     $("#giohang").click(function () {
         // Thêm xử lý của bạn tại đây, ví dụ: mở trang giỏ hàng hoặc thực hiện các tác vụ khác
         $.confirm({
             title: 'Thông tin giỏ hàng của bạn',
             content: 'Loading.......',
-            
+
         });
     });
+
+
+    function list_sach() {
+        const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
+
+        // Gọi API để lấy danh sách tác giả
+        $.post(apiURL,
+            {
+                action: "LietKe"
+            },
+            function (data) {
+                var json = JSON.parse(data);
+                var noidung_sach_html = "";
+                if (json.ok) {
+                    noidung_sach_html += `<table  class="table table-hover">`
+                    noidung_sach_html += `<thead>
+        <tr>    
+        <th>stt</th>
+        <th>Tên sách</th>
+        <th>Ảnh</th>
+        <th>Giá Bán</th>
+        <th>      </th>
+     
+        </tr>
+        </thead>`
+                    var stt = 0;
+
+                    for (var sach of json.data) {
+                        var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua</button>`
+
+                        noidung_sach_html += `
+            <tr>
+             <th>${++stt}</th>
+        <th>${sach.TenSach}</th>
+        <th><img src="${sach.AnhBia}" alt="${sach.TenSach}" width="100"></th>
+        <th>${sach.GiaBan}</th>
+        <th>${mua_them}</th>
+       
+        </tr>`;
+
+                    }
+
+                    noidung_sach_html += `</table>`
+                }
+                else {
+                    var noidung_sach_html = "Không có dữ liệu ";
+                }
+                $('#danhmucsach').html(noidung_sach_html);
+                $('.nut_mua_them').click(function () {
+                    var loai = $(this).data('loai')
+                    var id = $(this).data('cid')
+
+                    $.confirm({
+                        title: 'Thông tin sách',
+                        content: `
+        <div>
+            <img src="${sach.AnhBia}" alt="${sach.TenSach}" width="200">
+            <p>Tên sách: ${sach.TenSach}</p>
+            <p>Giá bán: ${sach.GiaBan}vnđ</p>
+            <p>Mô tả: ${sach.MoTa}</p>
+            <p>Số lượng trong kho ${sach.SoLuongTon} quyển </p>
+            <!-- Thêm các thông tin sách khác vào đây -->
+        </div>
+    `,
+                        buttons: {
+                            huy: {
+                                text: 'Hủy',
+                                btnClass: 'btn-red',
+                                action: function () {
+                                    // Xử lý khi nhấn nút "Hủy"
+                                }
+                            },
+                            mua: {
+                                text: 'Mua',
+                                btnClass: 'btn-green',
+                                action: function () {
+                                    // Xử lý khi nhấn nút "Mua"
+                                    alert('Đã mua sách: ' + sach.TenSach);
+                                }
+                            }
+
+                           
+                        }
+                    });
+                });
+            });
+
+    }
+
+    list_sach();
+
+
+
+
+
+
+
 });
+
+
+
+
+

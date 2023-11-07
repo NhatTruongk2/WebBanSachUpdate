@@ -61,7 +61,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="api.aspx" />
+    <Content Include="api_tacgia.aspx" />
     <Content Include="asset\bootstrap.min.css" />
     <Content Include="asset\jquery-confirm.min.css" />
     <Content Include="asset\jquery-confirm.min.js" />
@@ -87,15 +87,16 @@
     <Content Include="icon\v5-font-face.min.css" />
     <Content Include="index.html" />
     <Content Include="mystyle.css" />
+    <Content Include="Thongtinsach.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="api.aspx.cs">
-      <DependentUpon>api.aspx</DependentUpon>
+    <Compile Include="api_tacgia.aspx.cs">
+      <DependentUpon>api_tacgia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="api.aspx.designer.cs">
-      <DependentUpon>api.aspx</DependentUpon>
+    <Compile Include="api_tacgia.aspx.designer.cs">
+      <DependentUpon>api_tacgia.aspx</DependentUpon>
     </Compile>
     <Compile Include="lib\AppSettingsGet.cs" />
     <Compile Include="lib\LibDB.cs" />
