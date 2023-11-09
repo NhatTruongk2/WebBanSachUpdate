@@ -122,7 +122,7 @@ $(document).ready(function () {
         // Gọi API để lấy danh sách tác giả
         $.post(apiURL,
             {
-                action: "LietKe"
+                action: "LietKeSach"
             },
             function (data) {
                 var json = JSON.parse(data);
@@ -130,29 +130,29 @@ $(document).ready(function () {
                 if (json.ok) {
                     noidung_sach_html += `<table  class="table table-hover">`
                     noidung_sach_html += `<thead>
-        <tr>    
-        <th>stt</th>
-        <th>Tên sách</th>
-        <th>Ảnh</th>
-        <th>Giá Bán</th>
-        <th>      </th>
+                    <tr>    
+        
+                    <th>      </th>
+                    <th>      </th>
+                    <th>      </th>
+                    <th>      </th>
      
-        </tr>
-        </thead>`
-                    var stt = 0;
+                    </tr>
+                    </thead>`
+                    
 
                     for (var sach of json.data) {
-                        var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua</button>`
-
+                        var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                        
                         noidung_sach_html += `
-            <tr>
-             <th>${++stt}</th>
-        <th>${sach.TenSach}</th>
-        <th><img src="${sach.AnhBia}" alt="${sach.TenSach}" width="100"></th>
-        <th>${sach.GiaBan}</th>
-        <th>${mua_them}</th>
+                         <tr>
+             
+                        <th>${sach.TenSach}</th>
+                        <th><img src="${sach.AnhBia}" alt="${sach.TenSach}" width="100"></th>
+                        <th style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá : ${sach.GiaBan} VNĐ</th>
+                        <th>${mua_them}</th>
        
-        </tr>`;
+                        </tr>`;
 
                     }
 
@@ -162,55 +162,149 @@ $(document).ready(function () {
                     var noidung_sach_html = "Không có dữ liệu ";
                 }
                 $('#danhmucsach').html(noidung_sach_html);
+
+                console.log(json.data);
+                console.log(data);
+
                 $('.nut_mua_them').click(function () {
-                    var loai = $(this).data('loai')
-                    var id = $(this).data('cid')
+                    var loai = $(this).data('loai');
+                    var id = $(this).data('cid');
+                   
 
-                    $.confirm({
-                        title: 'Thông tin sách',
-                        content: `
-        <div>
-            <img src="${sach.AnhBia}" alt="${sach.TenSach}" width="200">
-            <p>Tên sách: ${sach.TenSach}</p>
-            <p>Giá bán: ${sach.GiaBan}vnđ</p>
-            <p>Mô tả: ${sach.MoTa}</p>
-            <p>Số lượng trong kho ${sach.SoLuongTon} quyển </p>
-            <!-- Thêm các thông tin sách khác vào đây -->
-        </div>
-    `,
-                        buttons: {
-                            huy: {
-                                text: 'Hủy',
-                                btnClass: 'btn-red',
-                                action: function () {
-                                    // Xử lý khi nhấn nút "Hủy"
-                                }
-                            },
-                            mua: {
-                                text: 'Mua',
-                                btnClass: 'btn-green',
-                                action: function () {
-                                    // Xử lý khi nhấn nút "Mua"
-                                    alert('Đã mua sách: ' + sach.TenSach);
-                                }
-                            }
+                    
 
-                           
+                    for (var sach2 of json.data) {
+                        if (sach2.MaSach == id) {
+                            mua_sach(sach2);
+                            break;
                         }
-                    });
+                       
+                    }
                 });
             });
+        function mua_sach(sach22) {
+            var thongtin_sach_html = "";
+            $.confirm({
+                title: '',
+                content: thongtin_sach_html += `
+                <div style="display: flex; align-items: center; justify-content: center;">
+            <div style="margin-right: 20px;">
+                <img style = " width = 300px; height=400px;"src="${sach22.AnhBia}" alt="${sach22.TenSach}" >
+            </div>
+            <div style="text-align: left;">
+                <p class="h2" style = "font-weight: bold;"" >Tên sách: ${sach22.TenSach}</p>
+                <p style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá bán: ${sach22.GiaBan}vnđ</p>
+                <p>Ngày cập nhật: ${sach22.NgayCapNhat}</p>
+                <p>Mô tả: ${sach22.MoTa}</p>
+                <p>Số lượng trong kho : ${sach22.SoLuongTon} quyển </p>
+                <!-- Thêm các thông tin sách khác vào đây -->
+            </div>
+        </div>`,
+                buttons: {
+                    mua: {
+                        text: 'Mua',
+                        btnClass: 'btn-green',
+
+                        
+                        action: function () {
+                            // Xử lý khi nhấn nút "Mua"
+                            alert('Đã mua sách: ' + sach22.TenSach);
+                        }
+                    },
+                    huy: {
+                        text: 'Hủy',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // Xử lý khi nhấn nút "Hủy"
+                        }
+                    }
+                    
+                },
+                columnClass: 'xxlarge'
+            });
+        }
 
     }
 
     list_sach();
 
 
+    function list_chude() {
+        const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
+
+        // Gọi API để lấy danh sách chủ đề
+        $.post(apiURL, {
+            action: "LietKeChuDe" // Sử dụng action "LietKeChuDe" cho chủ đề
+        }, function (data) {
+            var json = JSON.parse(data);
+            var noidung_chude_html = "";
+            if (json.ok) {
+                noidung_chude_html += `<table class="table table-hover">`;
+                noidung_chude_html += `<thead>
+                
+            </thead>`;
+             
+
+                for (var chude of json.data) {
+                    noidung_chude_html += `
+   <div class="list-group">
+  <a href="sdfsdff" class="list-group-item">${chude.TenChuDe}</a>
+</div>`;
+                }
+
+                noidung_chude_html += `</table>`;
+            } else {
+                noidung_chude_html = "Không có dữ liệu";
+            }
+            $('#danhmucchude').html(noidung_chude_html);
+        });
+
+    }
+
+    // Gọi hàm list_chude() để lấy dữ liệu chủ đề từ API
+    list_chude();
 
 
 
 
+    function list_tacgia() {
+        const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
 
+
+
+        $.post(apiURL, {
+            action: "LietKeTacGia" 
+        }, function (data) {
+            var json = JSON.parse(data);
+            var noidung_tacgia_html = "";
+            if (json.ok) {
+                noidung_tacgia_html += `<table class="table table-hover">`;
+                noidung_tacgia_html += `<thead>
+                
+            </thead>`;
+
+
+
+
+                for (var tacgia of json.data) {
+                    noidung_tacgia_html += `
+  <div class="list-group">
+    <a href="#" class="list-group-item">${tacgia.tentacgia}</a>
+
+  </div>`;
+                }
+
+                noidung_tacgia_html += `</table>`;
+            } else {
+                noidung_tacgia_html = "Không có dữ liệu";
+            }
+            $('#danhmuctacgia').html(noidung_tacgia_html);
+        });
+    }
+
+    // Gọi hàm list_chude() để lấy dữ liệu chủ đề từ API
+    list_tacgia();
+   
 });
 
 

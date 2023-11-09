@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="mystyle.css" rel="stylesheet" />
-
+    <script src="asset/chude.js"></script>
     <script src="asset/mycode.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+
+
 
 
   
@@ -29,59 +32,63 @@
     <div class="header">
 
         <div id="hotline">
-            Gọi ngay Hotline: <a href="tel:+123456789">036-351-6922 </a>
+            <i class="fa-solid fa-phone fa-lg" style="color: #ffffff;"></i> <a href="tel:+123456789">036-351-6922 </a>
         </div>
 
         <h1 id="tenweb">
-            SachHay.Com
+            SachHay.Com <i class="fa-solid fa-book-open fa-sm" style="color: #39bcc6;"></i>
         </h1>
 
 
-        <ul id="navigation">
+        <div class="topnav" id="myTopnav">
+            <a href="index.html" class="active">Trang chủ <i class="fa-solid fa-house fa-lg" style="color: #ffffff;"></i></a>
+            <a href="#news">Thông báo <i class="fa-solid fa-bell fa-lg" style="color: #fcfcfd;"></i></a>
+            <a href="#about">Sách <i class="fa-solid fa-book fa-lg" style="color: #ffffff;"></i></a>
+            <a href="#contact"> Người dùng <i class="fa-solid fa-user-pen fa-lg" style="color: #ffffff;"></i></a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
 
-            <li id="navMenu">
-
-            <li>
-                <a href="index.html">Trang chủ</a>
-            </li>
-            <li>
-                <a href="#">Giới thiệu</a>
-            </li>
-            <li>
-                <a href="#l">Hướng dẫn</a>
-            </li>
-            <li>
-                <a href="#l">Sách</a>
-            </li>
-        </ul>
-
-        <button class="btn btn-success" id="giohang">giỏ hàng</button>
+        <button class="btn btn-success" id="giohang"> Giỏ hàng <i class="fa-solid fa-basket-shopping fa-bounce" style="color: #ffffff;"></i></button>
 
         <div class="btn-group">
-            <button type="button" class="btn btn-primary " id="btn_dangky">Đăng nhập</button>
-            <button type="button" class="btn btn-primary" id="btn_dangnhap">Đăng ký</button>
+            <button type="button" class="btn btn-primary " id="btn_dangky">Đăng ký <i class="fa-solid fa-pen-to-square" style="color: #fcfcfd;"></i></button>
+            <button type="button" class="btn btn-primary" id="btn_dangnhap">Đăng nhập <i class="fa-solid fa-right-to-bracket" style="color: #fcfcfc;"></i></button>
 
         </div>
 
     </div>
 
 
-    <div class="carousel">
-        <div class="slides">
-            <div class="slide">
-                <img src="https://bookish.vn/wp-content/uploads/2020/06/Banner-1000x600px-01.jpg" alt="Image 1">
-            </div>
-            <div class="slide">
-                <img src="https://thegioiinan.com/images/tgia_20201016153224397_Halloween15.jpg" alt="Image 2">
-            </div>
-            <div class="slide">
-                <img src="https://bizweb.dktcdn.net/100/164/528/articles/cover-fb.jpg?v=1540538968593" alt="Image 3">
-            </div>
-            <div class="slide">
-                <img src="https://file.hstatic.net/200000090875/file/harry-potter_2_153782b9ae09434aacee563799bb4eff_grande.jpg" alt="Image 3">
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <div class="quangcao">
+        <div class="ad-container">
+            <div class="ad">
+                <img src="https://image.bnews.vn/MediaUpload/Org/2018/10/23/092205_halloween-2014-halloween-la-ngay-nao.jpg" alt="Alternate Text" />
+                <img src="https://tmdpc.vn//media/news/226_untitled_1.jpg" alt="Alternate Text" />
+                <img src="https://bizbooks.vn/uploads/images/2021/thang-4/z2461611569719_2b0d8ac8ec0d4d8afde919998d1b6d8d.jpg" alt="Alternate Text" />
+                <img src="https://www.cdimex.com.vn/wp-content/uploads/2020/07/1200x628-1024x536.png" alt="Alternate Text" />
+                <img src="https://sachnoi.cc/wp-content/uploads/2022/04/Nghe-Tron-Bo-7-Tap-Audio-Book-Harry-Potter-Tieng-Viet.jpg" alt="Alternate Text" />
+                <img src="https://www.vinabook.com/images/detailed/347/P88695Mtuyen_tap.jpg" alt="Alternate Text" />
+                <img src="https://image.bnews.vn/MediaUpload/Org/2018/10/23/092205_halloween-2014-halloween-la-ngay-nao.jpg" alt="Alternate Text" />
+               
             </div>
         </div>
+
     </div>
+   
 
 
 
@@ -91,16 +98,28 @@
 
 
 
-
+    
     <div class="thongtinmuaban">
 
 
 
-        <div id="danhmucsach">
+        <div id="danhmucsach" class="inline-block">
 
 
         </div>
 
+
+
+        <div id="divchude" class="inline-block">
+            <input type="text" placeholder="Tìm kiếm..."> <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass" style="color: #fafcff;"></i></button>
+            <h3 class="tenchude">Tìm kiếm theo chủ đề</h3>
+            <div id="danhmucchude"></div>
+
+
+
+            <h3 class="tenchude">Tìm kiếm theo tác giả</h3>
+            <div id="danhmuctacgia"></div>
+        </div>
 
 
     </div>
