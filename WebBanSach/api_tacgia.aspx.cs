@@ -18,7 +18,7 @@ namespace WebBanSach
 
             switch (action)
             {
-                case "Them":
+                case "ThemSACH":
                 case "SuaSach":
                     // Add parameters for updating or adding a book
                     cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
@@ -27,16 +27,16 @@ namespace WebBanSach
                     cm.Parameters.Add("@MoTa", SqlDbType.NVarChar, -1).Value = Request["MoTa"];
                     cm.Parameters.Add("@AnhBia", SqlDbType.NVarChar, 255).Value = Request["AnhBia"];
                     cm.Parameters.Add("@NgayCapNhat", SqlDbType.DateTime).Value = DateTime.Parse(Request["NgayCapNhat"]);
-                    cm.Parameters.Add("@SoLuongTon", SqlDbType.Int).Value = int.Parse(Request["SoLuongTon"]);
-                    cm.Parameters.Add("@MaNXB", SqlDbType.Int).Value = int.Parse(Request["MaNXB"]);
-                    cm.Parameters.Add("@MaChuDe", SqlDbType.Int).Value = int.Parse(Request["MaChuDe"]);
+                    cm.Parameters.Add("@SoLuongTon", SqlDbType.Int).Value = Request["SoLuongTon"];
+                    cm.Parameters.Add("@MaNXB", SqlDbType.Int).Value = Request["MaNXB"];
+                    cm.Parameters.Add("@MaChuDe", SqlDbType.Int).Value = Request["MaChuDe"];
                     break;
             }
 
             switch (action)
             {
-                case "Sua":
-                case "Xoa":
+               
+                case "XoaSach":
                     // Add parameters for updating or deleting a book
                     cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
                     break;
@@ -240,6 +240,9 @@ namespace WebBanSach
                     Sach(action);
                     break;
                 case "SuaSach":
+                    Sach(action);
+                    break;
+                case "XoaSach":
                     Sach(action);
                     break;
 

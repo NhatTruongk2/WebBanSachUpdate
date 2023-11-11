@@ -28,7 +28,9 @@ $(document).ready(function () {
                 for (var sach of json.data) {
                     
 
-                    var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Sửa <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                    var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Sửa <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>`;
+                   
+                    mua_them += `        <button class="btn btn-danger nut_mua_them" data-cid="${sach.MaSach}" data-loai = "xoa">Xóa <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>`
 
                     noidung_sach_html += `
                          <tr>
@@ -51,15 +53,20 @@ $(document).ready(function () {
                     var loai = $(this).data('loai');
                     var id = $(this).data('cid');
 
-
-
-
-                    for (var sach2 of json.data) {
-                        if (sach2.MaSach == id) {
-                            sua_sach(sach2);
-                            break;
+                    if (loai === 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                xoa_sach(sach2); // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
+                                break;
+                            }
                         }
-
+                    } else {
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                sua_sach(sach2);
+                                break;
+                            }
+                        }
                     }
                 });
 
@@ -67,33 +74,117 @@ $(document).ready(function () {
             }
 
         });
+
+        function xoa_sach(sach2) {
+            $.confirm({
+                title: 'Bạn có muốn xóa không?',
+                content: '     ',
+                buttons: {
+                    mua: {
+                        text: 'OK',
+                        btnClass: 'btn-red' ,
+                        action: function () {
+                            $.post('api_tacgia.aspx', {
+                                action: 'XoaSach',
+                                MaSach: sach2.MaSach // Truyền ID của sách cần xóa
+                            })
+                                .done(function (data) {
+                                    console.log('Sách đã bị xóa:', data);
+                                    // Thực hiện các hành động sau khi xóa thành công (nếu cần)
+                                })
+                                .fail(function (error) {
+                                    console.error('Lỗi khi xóa sách:', error);
+                                    // Xử lý khi xóa sách thất bại (nếu cần)
+                                });
+                        }
+                    },
+                    huy: {
+                        text: 'KHUM',
+                        btnClass: 'btn-green',
+                        action: function () {
+                            // Xử lý khi nhấn nút "Hủy"
+                        }
+                    }
+                },
+                columnClass: 'large'
+            });
+        }
+
+
+
         function sua_sach(sach22) {
             var thongtin_sach_html = "";
             $.confirm({
-                title: '',
+                title: '<h2 > CẬP NHẬT THÔNG TIN </h2>',
                 content: thongtin_sach_html += `
-                <div style="display: flex; align-items: center; justify-content: center;">
-            <div style="margin-right: 20px;">
-                <img style = " width = 300px; height=400px;"src="${sach22.AnhBia}" alt="${sach22.TenSach}" >
-            </div>
-            <div style="text-align: left;">
-                <p class="h2" style = "font-weight: bold;"" >Tên sách: ${sach22.TenSach}</p>
-                <p style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá bán: ${sach22.GiaBan}vnđ</p>
-                <p>Ngày cập nhật: ${sach22.NgayCapNhat}</p>
-                <p>Mô tả: ${sach22.MoTa}</p>
-                <p>Số lượng trong kho : ${sach22.SoLuongTon} quyển </p>
-                <!-- Thêm các thông tin sách khác vào đây -->
-            </div>
-        </div>`,
+<div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+    <div style="margin-right: 20px;">
+        <img style="width: 300px; height: 400px; object-fit: cover;" src="${sach22.AnhBia}" alt="${sach22.TenSach}">
+    </div>
+    <div style="text-align: left; display: flex; flex-direction: column;">
+     <p style="font-weight: bold; width: 150px;">Mã sách: <input type="text" id="maSachInput" value="${sach22.MaSach}"></p>
+        <p style="font-weight: bold; width: 150px;">Tên sách: <input type="text" id="tenSachInput" value="${sach22.TenSach}"></p>
+        <p style="font-weight: bold; color: #007bff; font-size: 18px; width: 150px;">Giá bán: <input type="text" id="giaBanInput" value="${sach22.GiaBan}"></p>
+        <p style="width: 150px;">Ngày cập nhật: <input type="text" id="ngayCapNhatInput" value="${sach22.NgayCapNhat}"></p>
+        <p style="width: 150px;">Mô tả: <input type="text" id="moTaInput" value="${sach22.MoTa}"></p>
+        <p style="width: 150px;">Số lượng trong kho: <input type="text" id="soLuongTonInput" value="${sach22.SoLuongTon}"> </p>
+        <p style="width: 150px;">Ảnh bìa: <input type="text" id="anhBiaInput" value="${sach22.AnhBia}"></p>
+        <p style="width: 150px;">Mã nhà xuất bản: <input type="text" id="maNhaXuatBanInput" value="${sach22.MaNXB}"></p>
+        <p style="width: 150px;">Mã chủ đề : <input type="text" id="maChuDeInput" value="${sach22.MaChuDe}"></p>
+    </div>
+</div>`,
+    
                 buttons: {
                     mua: {
                         text: 'Sửa',
                         btnClass: 'btn-green',
-
-
+                        
                         action: function () {
-                            // Xử lý khi nhấn nút "Mua"
-                            alert('Đã mua sách: ' + sach22.TenSach);
+                            // Collect the updated values from the input fields
+                            var maSach = $('#maSachInput').val();
+                            var tenSach = $('#tenSachInput').val();
+                            var giaBan = $('#giaBanInput').val();
+                            var ngayCapNhat = $('#ngayCapNhatInput').val();
+                            var moTa = $('#moTaInput').val();
+                            var soLuongTon = $('#soLuongTonInput').val();
+                            var anhBia = $('#anhBiaInput').val();
+                            var maNhaXuatBan = $('#maNXBInput').val();
+                            var maChuDe = $('#MaChuDe').val();
+
+                            var data = {
+                                MaSach :maSach,
+                                TenSach: tenSach,
+                                GiaBan: giaBan,
+                                NgayCapNhat: ngayCapNhat,
+                                MoTa: moTa,
+                                SoLuongTon: soLuongTon,
+                                AnhBia: anhBia,
+                                MaNXB: maNhaXuatBan,
+                                MaChuDe: maChuDe
+                            };
+                           
+                            $.post(apiURL, {
+                                action: 'SuaSach',
+                                MaSach: $('#maSachInput').val(),
+                                TenSach: $('#tenSachInput').val(),
+                                AnhBia: $('#anhBiaInput').val(),
+                                GiaBan: $('#giaBanInput').val(),
+                                NgayCapNhat: $('#ngayCapNhatInput').val(),
+                                SoLuongTon: $('#soLuongTonInput').val(),
+                                MoTa: $('#moTaInput').val(),
+                                MaNXB: $('#maNhaXuatBanInput').val(),
+                                MaChuDe: $('#maChuDeInput').val()
+                            }, function (data) {
+                                // Xử lý kết quả trả về từ API
+                                console.log("Dữ liệu từ API:", data);
+                            }).fail(function (error) {
+                                // Xử lý lỗi trong quá trình yêu cầu API
+                                console.error("Lỗi:", error);
+                            });
+
+                            // Do something with the collected data
+                         
+                    // ... Handle the data accordingly
                         }
                     },
                     huy: {
@@ -105,7 +196,7 @@ $(document).ready(function () {
                     }
 
                 },
-                columnClass: 'xxlarge'
+                columnClass: 'large'
             });
         }
 
@@ -119,7 +210,7 @@ $(document).ready(function () {
         $.post(apiURL, {
             action: 'TimKiemSach',
             TenSach: $('#timkiemsach').val(),
-        }, function (data) {
+           }, function (data) {
             // Xử lý dữ liệu sau khi nhận được từ API
             console.log(data); // In dữ liệu lấy được từ API vào console
             var json = JSON.parse(data);
