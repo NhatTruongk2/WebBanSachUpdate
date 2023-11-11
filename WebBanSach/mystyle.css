@@ -145,9 +145,8 @@ p {
 
 #danhmucsach{
     width:900px;
-    background-color:antiquewhite;
+    background-color:white;
 
-}
 }
 
 
@@ -268,7 +267,7 @@ p {
     left: 0; /* Bắt đầu từ bên trái */
     animation: slide 50s linear infinite; /* Tăng thời gian để đi qua toàn bộ trang */
     z-index: 1;
-  height
+ 
 }
 
 @keyframes slide {
@@ -286,3 +285,74 @@ p {
     height: 240px;
     z-index: 1;
 }
+
+
+
+/*css cho tab quản lý */
+.quanly{
+    width:1500px;
+    height: 650px;
+    background-color: darkcyan;
+}
+
+.luachonthongtin {
+   
+    width: 20%;
+    height: 650px;
+    background-color:darkslategray;
+}
+.hienthithongtin {
+
+    width: 80%;
+    height: 650px;
+    background-color: white;
+}
+
+
+.quanly {
+    display: flex;
+}
+
+.luachonthongtin, .hienthithongtin {
+   
+    padding: 10px; /* Thêm padding nếu cần thiết */
+}
+
+.chonsach {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    background-color: teal;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 270px;
+    height: 70px;
+}
+
+    /* Khi hover (rê chuột) vào nút */
+    .chonsach:hover {
+        background-color: cadetblue;
+        color: white;
+    }
+
+
+.chonnguoidung {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    background-color: teal;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 270px;
+    height: 70px;
+}
+
+    /* Khi hover (rê chuột) vào nút */
+    .chonnguoidung:hover {
+        background-color: cadetblue;
+        color: white;
+    }

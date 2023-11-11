@@ -19,7 +19,7 @@ namespace WebBanSach
             switch (action)
             {
                 case "Them":
-                case "Sua":
+                case "SuaSach":
                     // Add parameters for updating or adding a book
                     cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
                     cm.Parameters.Add("@TenSach", SqlDbType.NVarChar, 255).Value = Request["TenSach"];
@@ -44,9 +44,8 @@ namespace WebBanSach
 
             switch (action)
             {
-                case "TimKiem":
+                case "TimKiemSach":
                     // Add parameters for searching books
-                    cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
                     cm.Parameters.Add("@TenSach", SqlDbType.NVarChar, 255).Value = Request["TenSach"];
                     break;
             }
@@ -160,6 +159,72 @@ namespace WebBanSach
         }
 
 
+
+        void KhachHang(string action)
+        {
+            SqlServer db = new SqlServer();
+            SqlCommand cm = db.GetCmd("sp_KhachHang", action);
+
+            switch (action)
+            {
+                case "ThemKhachHang":
+                   
+                    cm.Parameters.Add("@HoTen", SqlDbType.NVarChar, 255).Value = Request["HoTen"];
+                    cm.Parameters.Add("@TaiKhoan", SqlDbType.NVarChar, 50).Value = Request["TaiKhoan"];
+                    cm.Parameters.Add("@MatKhau", SqlDbType.NVarChar, -1).Value = Request["MatKhau"];
+                    cm.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Request["Email"];
+                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = Request["DiaChi"];
+                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar, 15).Value = Request["DienThoai"];
+                    cm.Parameters.Add("@GioiTinh", SqlDbType.NVarChar, 3).Value = Request["GioiTinh"];
+                    cm.Parameters.Add("@NgaySinh", SqlDbType.DateTime).Value = Request["NgaySinh"];
+                    break;
+                case "SuaKhachHang":
+                    // Add parameters for updating or adding a book
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                    cm.Parameters.Add("@HoTen", SqlDbType.NVarChar, 255).Value = Request["HoTen"];
+                    cm.Parameters.Add("@TaiKhoan", SqlDbType.NVarChar, 50).Value = decimal.Parse(Request["TaiKhoan"]);
+                    cm.Parameters.Add("@MatKhau", SqlDbType.NVarChar, -1).Value = Request["MatKhau"];
+                    cm.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Request["Email"];
+                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = DateTime.Parse(Request["DiaChi"]);
+                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar,15).Value = int.Parse(Request["DienThoai"]);
+                    cm.Parameters.Add("@GioiTinh", SqlDbType.NVarChar,3).Value = int.Parse(Request["GioiTinh"]);
+                    cm.Parameters.Add("@NgaySinh", SqlDbType.DateTime).Value = int.Parse(Request["NgaySinh"]);
+                    break;
+            }
+
+            switch (action)
+            {
+                case "SuaKhachHang":
+                case "XoaKhachHang":
+                    // Add parameters for updating or deleting a book
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                    break;
+            }
+
+            switch (action)
+            {
+                case "TimKiemKhachHang":
+                    // Add parameters for searching books
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                   
+                    break;
+            }
+
+            switch (action)
+            {
+                case "LietKeKhachHang":
+                    // No additional parameters needed for listing books
+                    break;
+            }
+            //thuc thi
+            string json = (string)db.Scalar(cm);
+            this.Response.Write(json);
+        }
+
+
+
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string action = Request["action"];
@@ -167,15 +232,48 @@ namespace WebBanSach
             switch (action)
             {
               
+                // các action dùng cho sách
                 case "LietKeSach": 
                     Sach(action);    
                     break;
+                case "TimKiemSach":
+                    Sach(action);
+                    break;
+                case "SuaSach":
+                    Sach(action);
+                    break;
+
+                // các action dùng cho chủ đề
                 case "LietKeChuDe":
                     ChuDe(action);
                     break;
+
+                // Các action dùng cho Tác giả
+
+
                 case "LietKeTacGia":
                     TacGia(action);
                     break;
+
+
+                    //các action dùng cho khách hàng
+
+                case "LietKeKhachHang":
+                    KhachHang(action);
+                    break;
+                case "ThemKhachHang":
+                    KhachHang(action);
+                    break;
+                case "SuaKhachHang":
+                    KhachHang(action);
+                    break;
+                case "XoaKhachHang":
+                    KhachHang(action);
+                    break;
+                case "TimKiemKhachHang":
+                    KhachHang(action);
+                    break;
+
 
 
             }
