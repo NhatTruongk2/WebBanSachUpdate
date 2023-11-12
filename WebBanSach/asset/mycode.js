@@ -18,7 +18,7 @@ $(document).ready(function () {
                     <tr>    
         <th>  STT   </th>
                     <th>  Tên sách    </th>
-                    <th>   Số lượng tồn   </th>
+                  
                     <th>  Giá    </th>
                     <th>  Lựa chọn    </th>
      
@@ -36,7 +36,7 @@ $(document).ready(function () {
                          <tr>
              <th>  ${++STT}    </th>
                         <th>${sach.TenSach}</th>
-                       <th>${sach.SoLuongTon}</th>
+                     
                         <th style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá : ${sach.GiaBan} VNĐ</th>
                         <th>${mua_them}</th>
        
@@ -221,6 +221,7 @@ $(document).ready(function () {
                     <th>   Tài Khoản   </th>
                     <th>  Email    </th>
                     <th>  Lựa chọn    </th>
+                     <th>    </th>
      
                     </tr>
                     </thead>`
@@ -239,7 +240,7 @@ $(document).ready(function () {
                        <th>${sach.TaiKhoan}</th>
                         <th>${sach.Email}</th>
                         <th>${mua_them}</th>
-       
+             <th>    </th>
                         </tr>`;
                 }
 
@@ -413,28 +414,16 @@ $(document).ready(function () {
             var thongtintimkiem = "";
             // Sử dụng hàm confirm để hiển thị dữ liệu lấy được từ API
             if (json.ok) {
-                thongtintimkiem += `<table  class="table table-hover">`
-                thongtintimkiem += `<thead>
-                    <tr>    
-        
-                    <th>      </th>
-                    <th>      </th>
-                    <th>      </th>
-                    <th>      </th>
-     
-                    </tr>
-                    </thead>`
+               
                 for (var sach of json.data) {
                     var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
                     thongtintimkiem += `
-                         <tr>
-             
-                        <th>${sach.TenSach}</th>
-                        <th><img src="${sach.AnhBia}" alt="${sach.TenSach}" width="100"></th>
-                        <th style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá : ${sach.GiaBan} VNĐ</th>
-                        <th>${mua_them}</th>
-       
-                        </tr>`;
+                        <div class="book-container" style="width: 22%;height :380px;  margin: 10px; text-align: center; border: 1px solid #ccc; padding: 10px; display: inline-block; box-sizing: border-box;transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none';">
+    <img src="${sach.AnhBia}" alt="Ảnh bìa sách" style="width: 150px; height:  200px; margin-bottom: 10px;">
+    <h2 style="font-size: 18px; margin-bottom: 5px;">${sach.TenSach}</h2>
+    <p class="book-price" style="font-weight: bold; color: #FF5733;">${sach.GiaBan} VNĐ</p>
+   <p>${mua_them}</p>
+</div>`;
                 }
 
                 $('#danhmucsach').html(thongtintimkiem);
@@ -532,8 +521,8 @@ $(document).ready(function () {
             <input type="date" id="ngayCapNhat" class="ngayCapNhat form-control"  required />
         </div>
         <div class="form-group">
-            <label for="soLuongTon">soLuongTon</label>
-            <input type="text" id="soLuongTon" class="Số lượng tồn form-control"  required />
+            <label for="soLuongTon">Số lượng tồn</label>
+            <input type="text" id="soLuongTon" class="soLuongTon form-control"  required />
         </div>
         <div class="form-group">
             <label for="maNxb">Mã nhà xuất bản</label>
@@ -787,40 +776,38 @@ $(document).ready(function () {
                     text: 'Đăng nhập',
                     btnClass: 'btn-blue',
                     action: function () {
-                        var taiKhoan = this.$content.find('.taiKhoan').val();
-                        var matKhau = this.$content.find('.matKhau').val();
+                        var data_gui_di = {
+                            action: 'DangNhap',
+                            TaiKhoan: $('#taiKhoan').val(),
+                            MatKhau: $('#matKhau').val(),
+                        }
 
-                        // Gửi yêu cầu POST đến API để xác thực thông tin đăng nhập
-                        fetch('api_tacgia.aspx', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ taiKhoan: taiKhoan, matKhau: matKhau })
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Lỗi mạng! Không thể đăng nhập.');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                // Xử lý kết quả từ API sau khi đăng nhập
-                                console.log(data); // Dữ liệu nhận được từ API sau đăng nhập thành công
-                                // Thực hiện các hành động khác sau khi đăng nhập thành công
-                            })
-                            .catch(error => {
-                                // Xử lý lỗi nếu có
-                                console.error('Lỗi đăng nhập:', error);
-                                alert('lỗi')
-                                // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác khi đăng nhập không thành công
-                            });
+
+
+                        console.log(data_gui_di);
+                        const apiURL = 'api_tacgia.aspx';
+                        $.post(apiURL, data_gui_di, function (data) {
+                            var json = JSON.parse(data);
+                            if (json.ok) {
+                                $.confirm({
+                                    title: 'THÀNH CÔNG MUA SÁCH THÔI',
+                                    content: 'Mua sách thôi '
+                                });
+                            } else {
+                                // Hiển thị thông báo lỗi khi đăng nhập không thành công
+                                $.alert('Sai tên tài khoản hoặc mật khẩu!');
+                            }
+                        });
                     }
                 },
                 Hủy: function () {
                     // Đóng hộp thoại nếu người dùng nhấn "Hủy"
                 }
-            }
+            },
+            //onContentReady: function () {
+            //    // Tự động focus vào trường tài khoản khi hộp thoại mở
+            //    $('#taiKhoan').focus();
+            //}
         });
     });
 
@@ -848,31 +835,29 @@ $(document).ready(function () {
                 var json = JSON.parse(data);
                 var noidung_sach_html = "";
                 if (json.ok) {
-                    noidung_sach_html += `<table  class="table table-hover">`
-                    noidung_sach_html += `<thead>
-                    <tr>    
+                    //noidung_sach_html += `<table  class="table table-hover">`
+                    //noidung_sach_html += `<thead>
+                    //<tr>    
         
-                    <th>      </th>
-                    <th>      </th>
-                    <th>      </th>
-                    <th>      </th>
+                    //<th>      </th>
+                    //<th>      </th>
+                    //<th>      </th>
+                    //<th>      </th>
      
-                    </tr>
-                    </thead>`
+                    //</tr>
+                    //</thead>`
                     
 
                     for (var sach of json.data) {
                         var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
-                        
+
                         noidung_sach_html += `
-                         <tr>
-             
-                        <th>${sach.TenSach}</th>
-                        <th><img src="${sach.AnhBia}" alt="${sach.TenSach}" width="100"></th>
-                        <th style=" font-weight: bold;  color: #007bff; font-size: 18px; ">Giá : ${sach.GiaBan} VNĐ</th>
-                        <th>${mua_them}</th>
-       
-                        </tr>`;
+                        <div class="book-container" style="width: 22%;height :380px;  margin: 10px; text-align: center; border: 1px solid #ccc; padding: 10px; display: inline-block; box-sizing: border-box;transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none';">
+    <img src="${sach.AnhBia}" alt="Ảnh bìa sách" style="width: 150px; height:  200px; margin-bottom: 10px;">
+    <h2 style="font-size: 18px; margin-bottom: 5px;">${sach.TenSach}</h2>
+    <p class="book-price" style="font-weight: bold; color: #FF5733;">${sach.GiaBan} VNĐ</p>
+   <p>${mua_them}</p>
+</div>`;
 
                     }
 
@@ -965,17 +950,14 @@ $(document).ready(function () {
             var json = JSON.parse(data);
             var noidung_chude_html = "";
             if (json.ok) {
-                noidung_chude_html += `<table class="table table-hover">`;
-                noidung_chude_html += `<thead>
-                
-            </thead>`;
-             
+              
+                var noidung_sach_html = '<div class="list-group" style="display: flex; flex-direction: column;">';
 
                 for (var chude of json.data) {
                     noidung_chude_html += `
-   <div class="list-group">
-  <a href="sdfsdff" class="list-group-item">${chude.TenChuDe}</a>
-</div>`;
+     <div class="list-group-item" style="border: 1px solid #ccc; border-radius: 40px; margin: 5px; padding: 10px; width: 370px; transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none'">
+            <a href="link-to-book" style="text-decoration: none; color: white; font-weight: bold;"> <i class="fa-solid fa-arrow-right fa-rotate-180 fa-sm" style="color: #ffffff;"></i>   ${chude.TenChuDe}</a>
+        </div>`;
                 }
   
                 noidung_chude_html += `</table>`;
@@ -1004,20 +986,15 @@ $(document).ready(function () {
             var json = JSON.parse(data);
             var noidung_tacgia_html = "";
             if (json.ok) {
-                noidung_tacgia_html += `<table class="table table-hover">`;
-                noidung_tacgia_html += `<thead>
-                
-            </thead>`;
-
+            
 
 
 
                 for (var tacgia of json.data) {
                     noidung_tacgia_html += `
-  <div class="list-group">
-    <a href="#" class="list-group-item">${tacgia.tentacgia}</a>
-
-  </div>`;
+    <div class="list-group-item" style="border: 1px solid #ccc; border-radius: 40px; margin: 5px; padding: 10px; width: 370px; transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none'">
+            <a href="link-to-book" style="text-decoration: none; color: white; font-weight: bold;"> <i class="fa-solid fa-arrow-right fa-rotate-180 fa-sm" style="color: #ffffff;"></i>   ${tacgia.tentacgia}</a>
+        </div>`;
                 }
 
                 noidung_tacgia_html += `</table>`;

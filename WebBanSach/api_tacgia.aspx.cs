@@ -56,6 +56,9 @@ namespace WebBanSach
                     // No additional parameters needed for listing books
                     break;
             }
+
+
+
             //thuc thi
             string json = (string)db.Scalar(cm);
             this.Response.Write(json);
@@ -216,6 +219,14 @@ namespace WebBanSach
                     // No additional parameters needed for listing books
                     break;
             }
+
+            switch (action)
+            {
+                case "DangNhap":
+                    cm.Parameters.Add("@TaiKhoan", SqlDbType.NVarChar, 50).Value = Request["TaiKhoan"];
+                    cm.Parameters.Add("@MatKhau", SqlDbType.NVarChar, -1).Value = Request["MatKhau"];
+                    break;
+            }
             //thuc thi
             string json = (string)db.Scalar(cm);
             this.Response.Write(json);
@@ -277,6 +288,9 @@ namespace WebBanSach
                     KhachHang(action);
                     break;
                 case "TimKiemKhachHang":
+                    KhachHang(action);
+                    break;
+                case "DangNhap":
                     KhachHang(action);
                     break;
 

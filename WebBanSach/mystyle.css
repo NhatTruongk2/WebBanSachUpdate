@@ -143,10 +143,11 @@ p {
 }
 
 
-#danhmucsach{
-    width:900px;
-    background-color:white;
-
+#danhmucsach {
+    width: 1020px;
+    height: 1000px; /* Đặt chiều cao để hiển thị thanh trượt dọc */
+    background-color: white;
+    overflow-y: auto; /* Tạo thanh trượt dọc */
 }
 
 
@@ -170,9 +171,22 @@ p {
 
 .tenchude {
     margin-top:10px;
-    background-color: dodgerblue;
+    background-color:darkslategray;
     color: white;
-    border-radius: 10px;
+    border-radius: 0px;
+    font-style: oblique;
+    text-align: center; /* Canh giữa nội dung */
+   
+}
+#nuttimsach {
+    border-radius: 150px;
+    background-color:darkslategrey;
+}
+.tentacgia {
+    margin-top: 10px;
+    background-color: darkslategray;
+    color: white;
+    border-radius: 0px;
     font-style: oblique;
     text-align: center; /* Canh giữa nội dung */
 }
@@ -237,13 +251,14 @@ p {
 }
 
 #divchude input[type="text"] {
-    padding: 8px;
-    margin: 8px;
+    padding: 10px;
+    margin: 10px;
     border: none;
     border-radius: 40px;
-    width: 370px;
+    width: 275px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 0px solid black;
+    
     
 }
 
@@ -391,7 +406,20 @@ p {
 }
 
     /* Khi hover (rê chuột) vào nút */
-    .themtaikhoan:hover {
+    .chonnguoidung:hover {
         background-color: cadetblue;
         color: white;
     }
+
+
+    #divchude{
+        background-color:cadetblue;
+        width:350px;
+        height:1000px;
+    }
+
+
+.cuoitrang {
+    background-color:darkslategrey;
+    height:200px;
+}
