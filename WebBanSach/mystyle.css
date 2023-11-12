@@ -356,3 +356,42 @@ p {
         background-color: cadetblue;
         color: white;
     }
+
+.themsach {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 19px;
+    color: white;
+    background-color: teal;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 320px;
+    height: 70px;
+}
+
+    /* Khi hover (rê chuột) vào nút */
+    .themsach:hover {
+        background-color: cadetblue;
+        color: white;
+    }
+
+
+.themtaikhoan {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 19px;
+    color: white;
+    background-color: teal;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 320px;
+    height: 70px;
+}
+
+    /* Khi hover (rê chuột) vào nút */
+    .themtaikhoan:hover {
+        background-color: cadetblue;
+        color: white;
+    }

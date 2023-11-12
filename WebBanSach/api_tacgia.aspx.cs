@@ -18,10 +18,10 @@ namespace WebBanSach
 
             switch (action)
             {
-                case "ThemSACH":
+                case "ThemSach":
                 case "SuaSach":
                     // Add parameters for updating or adding a book
-                    cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
+                    
                     cm.Parameters.Add("@TenSach", SqlDbType.NVarChar, 255).Value = Request["TenSach"];
                     cm.Parameters.Add("@GiaBan", SqlDbType.Decimal).Value = decimal.Parse(Request["GiaBan"]);
                     cm.Parameters.Add("@MoTa", SqlDbType.NVarChar, -1).Value = Request["MoTa"];
@@ -35,7 +35,7 @@ namespace WebBanSach
 
             switch (action)
             {
-               
+                case "SuaSach":
                 case "XoaSach":
                     // Add parameters for updating or deleting a book
                     cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
@@ -180,15 +180,15 @@ namespace WebBanSach
                     break;
                 case "SuaKhachHang":
                     // Add parameters for updating or adding a book
-                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                   
                     cm.Parameters.Add("@HoTen", SqlDbType.NVarChar, 255).Value = Request["HoTen"];
-                    cm.Parameters.Add("@TaiKhoan", SqlDbType.NVarChar, 50).Value = decimal.Parse(Request["TaiKhoan"]);
+                    cm.Parameters.Add("@TaiKhoan", SqlDbType.NVarChar, 50).Value = Request["TaiKhoan"];
                     cm.Parameters.Add("@MatKhau", SqlDbType.NVarChar, -1).Value = Request["MatKhau"];
                     cm.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Request["Email"];
-                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = DateTime.Parse(Request["DiaChi"]);
-                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar,15).Value = int.Parse(Request["DienThoai"]);
-                    cm.Parameters.Add("@GioiTinh", SqlDbType.NVarChar,3).Value = int.Parse(Request["GioiTinh"]);
-                    cm.Parameters.Add("@NgaySinh", SqlDbType.DateTime).Value = int.Parse(Request["NgaySinh"]);
+                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = Request["DiaChi"];
+                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar,15).Value = Request["DienThoai"];
+                    cm.Parameters.Add("@GioiTinh", SqlDbType.NVarChar,3).Value = Request["GioiTinh"];
+                    cm.Parameters.Add("@NgaySinh", SqlDbType.DateTime).Value = Request["NgaySinh"];
                     break;
             }
 
@@ -197,7 +197,7 @@ namespace WebBanSach
                 case "SuaKhachHang":
                 case "XoaKhachHang":
                     // Add parameters for updating or deleting a book
-                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = Request["MaKH"];
                     break;
             }
 
@@ -205,7 +205,7 @@ namespace WebBanSach
             {
                 case "TimKiemKhachHang":
                     // Add parameters for searching books
-                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaKH"]);
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = Request["MaKH"];
                    
                     break;
             }
@@ -243,6 +243,9 @@ namespace WebBanSach
                     Sach(action);
                     break;
                 case "XoaSach":
+                    Sach(action);
+                    break;
+                case "ThemSach":
                     Sach(action);
                     break;
 
