@@ -232,7 +232,54 @@ namespace WebBanSach
             this.Response.Write(json);
         }
 
+        void ChiTietDonHang(string action)
+        {
+            SqlServer db = new SqlServer();
+            SqlCommand cm = db.GetCmd("sp_ChiTietDonHang", action);
 
+            switch (action)
+            {
+                case "ThemTacGia":
+                case "SuaCTDH":
+                    // Add parameters for updating or adding a book
+                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+                    cm.Parameters.Add("@TenTacGia", SqlDbType.NVarChar, 255).Value = Request["TenTacGia"];
+                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = Request["DiaChi"];
+                    cm.Parameters.Add("@TieuSu", SqlDbType.NVarChar, 255).Value = Request["TieuSu"];
+                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar, 15).Value = Request["Dienthoai"];
+
+
+                    break;
+            }
+
+            switch (action)
+            {
+                case "SuaTacGia":
+                case "XoaCTDH":
+                    // Add parameters for updating or deleting a book
+                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+                    break;
+            }
+
+            switch (action)
+            {
+                case "TimKiemCTDH":
+                    // Add parameters for searching books
+                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+
+                    break;
+            }
+
+            switch (action)
+            {
+                case "LietKeChiTietDonHang":
+                    // No additional parameters needed for listing books
+                    break;
+            }
+            //thuc thi
+            string json = (string)db.Scalar(cm);
+            this.Response.Write(json);
+        }
 
 
 
