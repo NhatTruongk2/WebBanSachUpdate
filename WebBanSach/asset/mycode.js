@@ -992,8 +992,10 @@ $(document).ready(function () {
 
                         
                         action: function () {
-                            // Xử lý khi nhấn nút "Mua"
-                            alert('Đã mua sách: ' + sach22.TenSach);
+                            $.confirm({
+                                titele: 'dsfsd',
+                                content: 'sdfsdf'
+                            });
                         }
                     },
                     huy: {
