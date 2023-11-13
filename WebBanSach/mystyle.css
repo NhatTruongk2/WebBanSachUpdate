@@ -405,6 +405,11 @@ p {
     height: 70px;
 }
 
+.themtaikhoan:hover {
+    background-color: cadetblue;
+    color: white;
+}
+
     /* Khi hover (rê chuột) vào nút */
     .chonnguoidung:hover {
         background-color: cadetblue;

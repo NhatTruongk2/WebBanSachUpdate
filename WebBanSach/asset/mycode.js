@@ -797,8 +797,8 @@ $(document).ready(function () {
                                 console.log(data)
                                     if (json.NAME === 'admin') {
                                     $.confirm({
-                                        title: 'Welcome Admin!',
-                                        content: 'You are logged in as an admin',
+                                        title: 'WELCOME!',
+                                        content: 'BẠN ĐÃ ĐĂNG NHẬP VỚI QUYỀN LÀ ADMIN',
                                         onContentReady: function () {
                                             setTimeout(function () {
                                                 window.location.href = "quanly.html";
