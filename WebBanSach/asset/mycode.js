@@ -786,18 +786,41 @@ $(document).ready(function () {
 
                         console.log(data_gui_di);
                         const apiURL = 'api_tacgia.aspx';
+
+                        
+                        
+
                         $.post(apiURL, data_gui_di, function (data) {
                             var json = JSON.parse(data);
-                            if (json.ok) {
-                                $.confirm({
-                                    title: 'THÀNH CÔNG MUA SÁCH THÔI',
-                                    content: 'Mua sách thôi '
-                                });
+                         
+                            if (json.ok == 1) {
+                                console.log(data)
+                                    if (json.NAME === 'admin') {
+                                    $.confirm({
+                                        title: 'Welcome Admin!',
+                                        content: 'You are logged in as an admin',
+                                        onContentReady: function () {
+                                            setTimeout(function () {
+                                                window.location.href = "quanly.html";
+                                            }, 2000); // Chuyển hướng sau 2 giây (có thể thay đổi thời gian chờ)
+                                        }
+                                    });
+                                } else  {
+                                    $.confirm({
+                                        title: 'THÀNH CÔNG MUA SÁCH THÔI',
+                                        content: 'Mua sách thôi',
+                                        onContentReady: function () {
+                                            setTimeout(function () {
+                                                window.location.href = "nguoidung.html";
+                                            }, 2000); // Chuyển hướng sau 2 giây (có thể thay đổi thời gian chờ)
+                                        }
+                                    });
+                                }
                             } else {
                                 // Hiển thị thông báo lỗi khi đăng nhập không thành công
                                 $.alert('Sai tên tài khoản hoặc mật khẩu!');
                             }
-                        });
+                        })
                     }
                 },
                 Hủy: function () {
@@ -850,13 +873,16 @@ $(document).ready(function () {
 
                     for (var sach of json.data) {
                         var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
-
+                      
+                        mua_them += `    <button class=" btn btn-primary nut_mua_them" data-cid="${sach.MaSach}" data-loai = "xoa">Chi tiết  </button>`
                         noidung_sach_html += `
                         <div class="book-container" style="width: 22%;height :380px;  margin: 10px; text-align: center; border: 1px solid #ccc; padding: 10px; display: inline-block; box-sizing: border-box;transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none';">
     <img src="${sach.AnhBia}" alt="Ảnh bìa sách" style="width: 150px; height:  200px; margin-bottom: 10px;">
     <h2 style="font-size: 18px; margin-bottom: 5px;">${sach.TenSach}</h2>
     <p class="book-price" style="font-weight: bold; color: #FF5733;">${sach.GiaBan} VNĐ</p>
-   <p>${mua_them}</p>
+   <p>${mua_them}  </p>
+  
+   
 </div>`;
 
                     }
@@ -874,16 +900,21 @@ $(document).ready(function () {
                 $('.nut_mua_them').click(function () {
                     var loai = $(this).data('loai');
                     var id = $(this).data('cid');
-                   
 
-                    
-
-                    for (var sach2 of json.data) {
-                        if (sach2.MaSach == id) {
-                            mua_sach(sach2);
-                            break;
+                    if (loai == 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                chi_tiet(sach2); // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
+                                break;
+                            }
                         }
-                       
+                    } else {
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                mua_sach(sach2);
+                                break;
+                            }
+                        }
                     }
                 });
 
@@ -891,7 +922,50 @@ $(document).ready(function () {
 
             });
 
+        function chi_tiet(sach22){
+            $.post(apiURL, {
+                action: "LietKeChuDe" // Sử dụng action "LietKeChuDe" cho chủ đề
+            }, function (data) {
+                var json = JSON.parse(data);
+                var noidung_chude_html = "";
+                if (json.ok) {
 
+                    var noidung_chude_html = '<div class="list-group" style="display: flex; flex-direction: column;">';
+
+                    for (var chude of json.data) {
+                        var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach22.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                        
+                        noidung_chude_html = `
+           <div style="display: flex; align-items: center; justify-content: center;">
+    <div style="margin-right: 20px;">
+        <img style="width: 200px; height: 300px;" src="${sach22.AnhBia}" alt="${sach22.TenSach}">
+    </div>
+    <div style="text-align: left;">
+        <p class="h2" style="font-weight: bold;">Tên sách: ${sach22.TenSach}</p>
+        <p style="font-weight: bold; color: #007bff; font-size: 18px;">Giá bán: ${sach22.GiaBan}vnđ</p>
+        <p>Ngày cập nhật: ${sach22.NgayCapNhat}</p>
+        <p>Mô tả: ${sach22.MoTa}</p>
+        <p>Số lượng trong kho : ${sach22.SoLuongTon} quyển</p>
+        <p>${mua_them}</p>
+        <!-- Thêm các thông tin sách khác vào đây -->
+    </div>
+</div>
+`;
+                    }
+
+                  
+                } else {
+                    noidung_chude_html = "Không có dữ liệu";
+                }
+                $('#danhmucsach').html(noidung_chude_html);
+
+
+
+            });
+          
+
+            
+        }
 
         function mua_sach(sach22) {
             var thongtin_sach_html = "";
