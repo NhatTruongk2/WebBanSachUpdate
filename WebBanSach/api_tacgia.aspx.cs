@@ -239,14 +239,14 @@ namespace WebBanSach
 
             switch (action)
             {
-                case "ThemTacGia":
+                case "ThemChiTietDonHang":
                 case "SuaCTDH":
                     // Add parameters for updating or adding a book
-                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
-                    cm.Parameters.Add("@TenTacGia", SqlDbType.NVarChar, 255).Value = Request["TenTacGia"];
-                    cm.Parameters.Add("@DiaChi", SqlDbType.NVarChar, 255).Value = Request["DiaChi"];
-                    cm.Parameters.Add("@TieuSu", SqlDbType.NVarChar, 255).Value = Request["TieuSu"];
-                    cm.Parameters.Add("@DienThoai", SqlDbType.NVarChar, 15).Value = Request["Dienthoai"];
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+                    cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"];
+                    cm.Parameters.Add("@SoLuong", SqlDbType.Int).Value = int.Parse(Request["SoLuong"];
+                    cm.Parameters.Add("@DonGia", SqlDbType.NVarChar, 255).Value = Request["DonGia"];
+                  
 
 
                     break;
