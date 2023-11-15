@@ -904,7 +904,7 @@ $(document).ready(function () {
                     if (loai == 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
                         for (var sach2 of json.data) {
                             if (sach2.MaSach == id) {
-                                chi_tiet(sach2); // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
+                                chi_tiet(sach2);   // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
                                 break;
                             }
                         }
@@ -969,11 +969,11 @@ $(document).ready(function () {
 
 
         function dat_hang(sach22, data) {
-            var banh;
+            var sach;
             var json = JSON.parse(data);
             for (var item of json.data) {
                 if (item.MaSach == MaSach) {
-                    banh = item;
+                    sach = item;
                     break;
                 }
             }

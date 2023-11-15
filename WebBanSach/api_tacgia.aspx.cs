@@ -78,6 +78,7 @@ namespace WebBanSach
                        cm.Parameters.Add("@MaChuDe", SqlDbType.Int).Value = int.Parse(Request["MaChuDe"]);
                     cm.Parameters.Add("@TenChuDe", SqlDbType.NVarChar, 255).Value = Request["TenChuDe"];
                    
+
                 
                     break;
             }
@@ -232,6 +233,59 @@ namespace WebBanSach
             this.Response.Write(json);
         }
 
+
+        void DonHang(string action)
+        {
+            SqlServer db = new SqlServer();
+            SqlCommand cm = db.GetCmd("sp_DonHang", action);
+
+            switch (action)
+            {
+                case "ThemDonHang":
+                case "SuaDonHang":
+                    // Add parameters for updating or adding a book
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+                    cm.Parameters.Add("@DaThanhToan", SqlDbType.Int).Value = int.Parse(Request["DaThanhToan"]);
+                    cm.Parameters.Add("@TinhTrangDonHang", SqlDbType.Int).Value = int.Parse(Request["TinhTrangDonHang"]);
+                    cm.Parameters.Add("@NgayGiao", SqlDbType.DateTime).Value = Request["NgayDat"];
+                    cm.Parameters.Add("@NgayDat", SqlDbType.DateTime).Value = Request["NgayGiao"];
+                    cm.Parameters.Add("@MaKH", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+
+
+
+
+                    break;
+            }
+
+            switch (action)
+            {
+                case "SuaDonHang":
+                case "XoaDonHang":
+                    // Add parameters for updating or deleting a book
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+                    break;
+            }
+
+            switch (action)
+            {
+                case "TimKiemDonHang":
+                    // Add parameters for searching books
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+
+                    break;
+            }
+
+            switch (action)
+            {
+                case "LietKeDonHang":
+                    // No additional parameters needed for listing books
+                    break;
+            }
+            //thuc thi
+            string json = (string)db.Scalar(cm);
+            this.Response.Write(json);
+        }
+
         void ChiTietDonHang(string action)
         {
             SqlServer db = new SqlServer();
@@ -243,8 +297,8 @@ namespace WebBanSach
                 case "SuaCTDH":
                     // Add parameters for updating or adding a book
                     cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
-                    cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"];
-                    cm.Parameters.Add("@SoLuong", SqlDbType.Int).Value = int.Parse(Request["SoLuong"];
+                    cm.Parameters.Add("@MaSach", SqlDbType.Int).Value = int.Parse(Request["MaSach"]);
+                    cm.Parameters.Add("@SoLuong", SqlDbType.Int).Value = int.Parse(Request["SoLuong"]);
                     cm.Parameters.Add("@DonGia", SqlDbType.NVarChar, 255).Value = Request["DonGia"];
                   
 
@@ -257,7 +311,7 @@ namespace WebBanSach
                 case "SuaTacGia":
                 case "XoaCTDH":
                     // Add parameters for updating or deleting a book
-                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
                     break;
             }
 
@@ -265,7 +319,7 @@ namespace WebBanSach
             {
                 case "TimKiemCTDH":
                     // Add parameters for searching books
-                    cm.Parameters.Add("@MaTacGia", SqlDbType.Int).Value = int.Parse(Request["MaTacGia"]);
+                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
 
                     break;
             }
@@ -341,6 +395,9 @@ namespace WebBanSach
                     KhachHang(action);
                     break;
 
+                //các action dùng cho chi tiết đơn hàng
+
+               
 
 
             }
