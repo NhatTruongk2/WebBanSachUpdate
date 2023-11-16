@@ -417,6 +417,7 @@ $(document).ready(function () {
                
                 for (var sach of json.data) {
                     var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                    mua_them += `    <button class=" btn btn-primary nut_mua_them" data-cid="${sach.MaSach}" data-loai = "xoa">Chi tiết  </button>`
                     thongtintimkiem += `
                         <div class="book-container" style="width: 22%;height :380px;  margin: 10px; text-align: center; border: 1px solid #ccc; padding: 10px; display: inline-block; box-sizing: border-box;transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 10px rgba(0, 0, 0, 0.5)'" onmouseout="this.style.boxShadow='none';">
     <img src="${sach.AnhBia}" alt="Ảnh bìa sách" style="width: 150px; height:  200px; margin-bottom: 10px;">
@@ -436,15 +437,20 @@ $(document).ready(function () {
                     var loai = $(this).data('loai');
                     var id = $(this).data('cid');
 
-
-
-
-                    for (var sach2 of json.data) {
-                        if (sach2.MaSach == id) {
-                            mua_sach(sach2);
-                            break;
+                    if (loai == 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                chi_tiet(sach2);   // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
+                                break;
+                            }
                         }
-
+                    } else {
+                        for (var sach2 of json.data) {
+                            if (sach2.MaSach == id) {
+                                mua_sach(sach2);
+                                break;
+                            }
+                        }
                     }
                 });
 
@@ -857,6 +863,7 @@ $(document).ready(function () {
             function (data) {
                 var json = JSON.parse(data); // chuyển đổi đối tượng json nhận đc thành javascript
                 var noidung_sach_html = "";
+               
                 if (json.ok) {
                     //noidung_sach_html += `<table  class="table table-hover">`
                     //noidung_sach_html += `<thead>
@@ -933,6 +940,7 @@ $(document).ready(function () {
                     var noidung_chude_html = '<div class="list-group" style="display: flex; flex-direction: column;">';
 
                     for (var chude of json.data) {
+                       
                         var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach22.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
                         mua_them += `<button class=" btn btn-success nut_quay_lai" data-cid="${sach22.MaSach}" data-loai = "quaylai"> Quay lại <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
                         noidung_chude_html = `
