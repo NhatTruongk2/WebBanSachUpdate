@@ -1047,6 +1047,73 @@ $(document).ready(function () {
         });
     });
 
+    $(".themtacgia").click(function () {
+
+        var contentthemsach = `
+    <form>
+       
+        <div class="form-group">
+            <label for="tenTacGia">Tên tác giả</label>
+            <input type="text" id="tenTacGia" class="tenTacGia form-control"  required />
+        </div>
+        <div class="form-group">
+            <label for="tieuSu">Tiểu sử</label>
+            <input type="text" id="tieuSu" class="tieuSu form-control" values =  required />
+        </div>
+        <div class="form-group">
+            <label for="diaChi">Địa chỉ</label>
+            <input type="text" id="diaChi" class="diaChi form-control"  required />
+        </div>
+        <div class="form-group">
+            <label for="dienThoai">Điện thoại</label>
+            <input type="text" id="dienThoai" class="dienThoai form-control"  required />
+        </div>
+        
+    </form>
+`;
+
+
+        var dialog_dangky = $.confirm({
+            title: "Thêm tác giả",
+            content: contentthemsach,
+            buttons: {
+                formSubmit: {
+                    text: 'Thêm tác giả',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        var data_gui_di = {
+                            action: 'ThemTacGia',
+
+                            tentacgia: $('#tenTacGia').val(),
+                            tieusu: $('#tieuSu').val(),
+                            diachi: $('#diaChi').val(),
+                            dienthoai: $('#dienThoai').val(),
+                           
+                        }
+
+
+                        console.log(data_gui_di);
+                        const apiURL = 'api_tacgia.aspx';
+                        $.post(apiURL, data_gui_di, function (data) {
+                            var json = JSON.parse(data);
+                            if (json.ok) {
+                                $.confirm({
+                                    title: 'THÊM SÁCH THÀNH CÔNG ',
+                                    content: 'OK BẠN ƠI !!!!! '
+                                });
+                            } else {
+                                alert('lỗi')
+                            }
+                        })
+                    }
+                },
+                Hủy: function () {
+                    // Đóng hộp thoại nếu người dùng nhấn "Hủy"
+                }
+            }
+        });
+    });
+
 
     $(".themtaikhoan").click(function () {
 
