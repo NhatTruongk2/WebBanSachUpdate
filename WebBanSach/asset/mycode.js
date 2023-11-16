@@ -202,10 +202,11 @@ $(document).ready(function () {
 
     });
 
-    $(".chondonhang").click(function () {
+    $('.chondonhang').click(function () {
         var apiURL = 'api_tacgia.aspx';
         $.post(apiURL, {
-            action: 'lietKeDonHang',
+            action: 'LietKeDonHang',
+        
         }, function (data) {
             // Xử lý dữ liệu sau khi nhận được từ API
             console.log(data); // In dữ liệu lấy được từ API vào console
@@ -217,14 +218,14 @@ $(document).ready(function () {
                 noidung_sach_html += `<thead>
                     <tr>    
         <th>  STT   </th>
-                    <th>  Mã Đơn Hàng    </th>
+                    <th> Mã Đơn Hàng     </th>
                   
-                    <th>  Đã thanh toán     </th>
-                    <th>  Tình trạng giao hàng     </th>
-                        <th>  Ngày đặt     </th>
-                    <th>  Ngày giao     </th>
-                     <th>  Mã khách hàng     </th>
-     
+                    <th>  Đã thanh toán   </th>
+                    <th>  Tình trạng giao hàng   </th>
+      
+                    <th>  Ngày đặt   </th>
+                    <th>  Ngày giao   </th>
+                    <th>  Mã khách hàng   </th>
                     </tr>
                     </thead>`
                 var STT = 0;
@@ -240,10 +241,12 @@ $(document).ready(function () {
              <th>  ${++STT}    </th>
                         <th>${sach.MaDonHang}</th>
                      <th>${sach.DaThanhToan}</th>
-                         <th>${sach.TinhTrangGiaoHang}</th>
+                     <th>${sach.TinhTrangGiaoHang}</th>
                      <th>${sach.NgayDat}</th>
-                       <th>${sach.NgayGiao}</th>
+
+                     <th>${sach.NgayGiao}</th>
                      <th>${sach.MaKH}</th>
+                       
                         <th>${mua_them}</th>
        
                         </tr>`;
@@ -261,14 +264,14 @@ $(document).ready(function () {
 
                     if (loai === 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
                         for (var sach2 of json.data) {
-                            if (sach2.MaSach == id) {
+                            if (sach2.MaDonHang == id) {
                                 xoa_sach(sach2); // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
                                 break;
                             }
                         }
                     } else {
                         for (var sach2 of json.data) {
-                            if (sach2.MaSach == id) {
+                            if (sach2.MaDonHang == id) {
                                 sua_sach(sach2);
                                 break;
                             }
@@ -291,8 +294,8 @@ $(document).ready(function () {
                         btnClass: 'btn-red',
                         action: function () {
                             $.post('api_tacgia.aspx', {
-                                action: 'XoaSach',
-                                MaSach: sach2.MaSach // Truyền ID của sách cần xóa
+                                action: 'XoaDonHang',
+                                MaDonHang: sach2.MaDonHang // Truyền ID của sách cần xóa
                             })
                                 .done(function (data) {
                                     console.log('Sách đã bị xóa:', data);
@@ -317,26 +320,23 @@ $(document).ready(function () {
         }
 
 
-
         function sua_sach(sach22) {
             var thongtin_sach_html = "";
             $.confirm({
                 title: '<h2 > CẬP NHẬT THÔNG TIN </h2>',
                 content: thongtin_sach_html += `
 <div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
-    <div style="margin-right: 20px;">
-        <img style="width: 300px; height: 400px; object-fit: cover;" src="${sach22.AnhBia}" alt="${sach22.TenSach}">
-    </div>
+  
     <div style="text-align: left; display: flex; flex-direction: column;">
-     <p style="font-weight: bold; width: 150px;">Mã sách: <input type="text" id="maSachInput" value="${sach22.MaSach}"></p>
-        <p style="font-weight: bold; width: 150px;">Tên sách: <input type="text" id="tenSachInput" value="${sach22.TenSach}"></p>
-        <p style="font-weight: bold; color: #007bff; font-size: 18px; width: 150px;">Giá bán: <input type="text" id="giaBanInput" value="${sach22.GiaBan}"></p>
-        <p style="width: 150px;">Ngày cập nhật: <input type="text" id="ngayCapNhatInput" value="${sach22.NgayCapNhat}"></p>
-        <p style="width: 150px;">Mô tả: <input type="text" id="moTaInput" value="${sach22.MoTa}"></p>
-        <p style="width: 150px;">Số lượng trong kho: <input type="text" id="soLuongTonInput" value="${sach22.SoLuongTon}"> </p>
-        <p style="width: 150px;">Ảnh bìa: <input type="text" id="anhBiaInput" value="${sach22.AnhBia}"></p>
-        <p style="width: 150px;">Mã nhà xuất bản: <input type="text" id="maNhaXuatBanInput" value="${sach22.MaNXB}"></p>
-        <p style="width: 150px;">Mã chủ đề : <input type="text" id="maChuDeInput" value="${sach22.MaChuDe}"></p>
+     <p style="font-weight: bold; width: 150px;">Mã đơn hàng: <input type="text" id="maDonHangInput" value="${sach22.MaDonHang}"></p>
+        <p style="font-weight: bold; width: 150px;">Đã thanh toán: <input type="text" id="daThanhToanInput" value="${sach22.DaThanhToan}"></p>
+        <p style="width: 150px;">Tình trạng giao hàng: <input type="text" id="tinhTrangGiaoHangInput" value="${sach22.TinhTrangGiaoHang}"></p>
+        <p style="width: 150px;">Ngày đặt: <input type="text" id="ngayDatInput" value="${sach22.NgayDat}"></p>
+                <p style="width: 150px;">Ngày giao: <input type="text" id="ngayGiao" value="${sach22.NgayGiao}"></p>
+
+
+        <p style="width: 150px;">Mã khách hàng: <input type="text" id="maKHInput" value="${sach22.MaKH}"></p>
+
     </div>
 </div>`,
 
@@ -347,39 +347,35 @@ $(document).ready(function () {
 
                         action: function () {
                             // Collect the updated values from the input fields
-                            var maSach = $('#maSachInput').val();
-                            var tenSach = $('#tenSachInput').val();
-                            var giaBan = $('#giaBanInput').val();
-                            var ngayCapNhat = $('#ngayCapNhatInput').val();
-                            var moTa = $('#moTaInput').val();
-                            var soLuongTon = $('#soLuongTonInput').val();
-                            var anhBia = $('#anhBiaInput').val();
-                            var maNhaXuatBan = $('#maNXBInput').val();
-                            var maChuDe = $('#MaChuDe').val();
+                            var maDonHang = $('#maDonHangInput').val();
+                            var daThanhToan = $('#daThanhToanInput').val();
+                            var tinhTrangGiaoHang = $('#tinhTrangGiaoHangInput').val();
+                            var ngayDat = $('#ngayDatInput').val();
+                            var ngayGiao = $('#ngayGiaoInput').val();
+                            var maKH = $('#maKHInput').val();
+                
+                         
 
                             var data = {
-                                MaSach: maSach,
-                                TenSach: tenSach,
-                                GiaBan: giaBan,
-                                NgayCapNhat: ngayCapNhat,
-                                MoTa: moTa,
-                                SoLuongTon: soLuongTon,
-                                AnhBia: anhBia,
-                                MaNXB: maNhaXuatBan,
-                                MaChuDe: maChuDe
+                                MaDonHang: maDonHang,
+                                DaThanhToan: daThanhToan,
+                                TinhTrangGiaoHang: tinhTrangGiaoHang,
+                                NgayDat: ngayDat,
+                                NgayGiao: ngayGiao,
+                                MaKH: maKH,
+                            
                             };
 
                             $.post(apiURL, {
                                 action: 'SuaSach',
-                                MaSach: $('#maSachInput').val(),
-                                TenSach: $('#tenSachInput').val(),
-                                AnhBia: $('#anhBiaInput').val(),
-                                GiaBan: $('#giaBanInput').val(),
-                                NgayCapNhat: $('#ngayCapNhatInput').val(),
-                                SoLuongTon: $('#soLuongTonInput').val(),
-                                MoTa: $('#moTaInput').val(),
-                                MaNXB: $('#maNhaXuatBanInput').val(),
-                                MaChuDe: $('#maChuDeInput').val()
+                                MaDonHang: $('#maDonHang').val(),
+                                DaThanhToan: $('#daThanhToan').val(),
+                                TinhTrangGiaoHang: $('#tinhTrangGiaoHang').val(),
+                                NgayDat: $('#ngayDat').val(),
+                                NgayGiao: $('#ngayGiao').val(),
+                                MaKH: $('#maKH').val(),
+                             
+                               
                             }, function (data) {
                                 // Xử lý kết quả trả về từ API
                                 console.log("Dữ liệu từ API:", data);
@@ -405,6 +401,8 @@ $(document).ready(function () {
                 columnClass: 'large'
             });
         }
+       
+
 
     });
 

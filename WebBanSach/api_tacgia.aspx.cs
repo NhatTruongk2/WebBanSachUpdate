@@ -413,6 +413,23 @@ namespace WebBanSach
                     break;
 
 
+                // Các action dùng cho chi tiết đơn hàng
+                case "ThemChiTietDonHang":
+                    ChiTietDonHang(action);
+                    break;
+                case "SuaChiTietDonHang":
+                    ChiTietDonHang(action);
+                    break;
+                case "XoaChiTietDonHang":
+                    ChiTietDonHang(action);
+                    break;
+                case "TimKiemChiTietDonHang":
+                    ChiTietDonHang(action);
+                    break;
+                case "LietKeChiTietDonHang":
+                    ChiTietDonHang(action);
+                    break;
+
 
             }
 
