@@ -390,7 +390,7 @@ p {
         background-color: cadetblue;
         color: white;
     }
-.themdonhang {
+.chondonhang {
     display: inline-block;
     text-align: center;
     text-decoration: none;
@@ -403,7 +403,7 @@ p {
     height: 70px;
 }
 
-    .themdonhang:hover {
+    .chondonhang:hover {
         background-color: cadetblue;
         color: white;
     }
@@ -442,6 +442,31 @@ p {
 
 
 .cuoitrang {
-    background-color:darkslategrey;
-    height:200px;
+    background-color: darkslategrey;
+    color: white; /* Màu chữ trắng */
+    padding: 20px; /* Khoảng cách nội dung từ mép */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước ngoại vi */
+    text-align: center; /* Căn giữa nội dung trong phần cuối trang */
+}
+
+
+.gioithieu h3,
+.lienhe h3 {
+    text-align: center; /* Căn giữa chữ "Trang bán sách uy tín" và "Liên Hệ" */
+    margin-bottom: 10px; /* Khoảng cách giữa tiêu đề và nội dung */
+}
+
+.gioithieu p {
+    text-align: center; /* Căn giữa dòng chữ */
+    margin-bottom: 10px; /* Khoảng cách giữa dòng chữ và các phần khác */
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center; /* Căn giữa các phần email và hotline */
+}
+
+.logo-image {
+    width: 150px; /* Đổi kích thước của logo */
+    height: auto; /* Tự động tính chiều cao dựa trên chiều rộng */
 }
