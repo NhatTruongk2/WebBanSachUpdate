@@ -232,7 +232,7 @@ $(document).ready(function () {
                 for (var sach of json.data) {
 
 
-                    var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaDonHang}" data-loai = "mua">Sửa <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>`;
+                    var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaDonHang}" data-loai = "mua">Chi Tiết <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>`;
 
                     mua_them += `        <button class="btn btn-danger nut_mua_them" data-cid="${sach.MaDonHang}" data-loai = "xoa">Xóa <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>`
 
@@ -405,6 +405,8 @@ $(document).ready(function () {
 
 
     });
+
+
 
     $(".chonnguoidung").click(function () {
         var apiURL = 'api_tacgia.aspx';

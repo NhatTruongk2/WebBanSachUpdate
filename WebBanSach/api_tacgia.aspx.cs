@@ -244,7 +244,7 @@ namespace WebBanSach
                 case "ThemDonHang":
                 case "SuaDonHang":
                     // Add parameters for updating or adding a book
-                    cm.Parameters.Add("@MaDonHang", SqlDbType.Int).Value = int.Parse(Request["MaDonHang"]);
+                  
                     cm.Parameters.Add("@DaThanhToan", SqlDbType.Int).Value = int.Parse(Request["DaThanhToan"]);
                     cm.Parameters.Add("@TinhTrangDonHang", SqlDbType.Int).Value = int.Parse(Request["TinhTrangDonHang"]);
                     cm.Parameters.Add("@NgayGiao", SqlDbType.DateTime).Value = Request["NgayDat"];
