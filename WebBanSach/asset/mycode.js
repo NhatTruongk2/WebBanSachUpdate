@@ -969,83 +969,11 @@ $(document).ready(function () {
 
 
         function dat_hang(sach22, data) {
-            var sach;
-            var json = JSON.parse(data);
-            for (var item of json.data) {
-                if (item.MaSach == MaSach) {
-                    sach = item;
-                    break;
-                }
-            }
-            var mahoadon = Math.random();
-            var user;
-            var json = JSON.parse(data);
-            for (var user of json.data) { }
-            var content =
-                `     
-          <pre>
-                Chào mưng quý khách
-    Mã Hóa đơn : ${mahoadon}
-    Ngày mua   : ${getdate()}
+           
+          
 
-Tên sản phẩm  : ${banh.TenSach}                               <img style="width: 200px; " src="${banh.AnhBia}" />
-Số lượng      : <input type="int" id="soluong" placeholder="Số lượng " required>
-Giá Tiền      : <input type="int" id="giatien" value="${banh.GiaBan}" required>
-Tên người nhận: <input type="text" id="tennguoinhan" value="${user.HoTen + " " + user.HoTen}" required>
-Địa chỉ       : <input type="text" id="diachinhan" value="${user.DiaChi}" required>
-
-</pre>
-         `
-
-
-            var dialog_edit = $.confirm({
-                title: '<b> Xác Nhận Đơn Hàng </b>',
-                content: content,
-                columnClass: 'large',
-
-                buttons: {
-                    formSubmit: {
-                        text: 'Đặt hàng',
-                        btnClass: 'btn-primary',
-
-
-                        action: function () {
-                            var data_bang_hoa_don = {
-                                action: 'CH_add_hoa_don',
-                                mahoadon: mahoadon,
-                                HoTen: $('#tennguoinhan').val(),
-                                DiaChi: $('#diachinhan').val(),
-                                MaKH: MA_KHACH_HANG,
-                                TinhTrangGiaoHang: 'Chờ Xác Nhận',
-                                DonGia: $('#soluong').val() * $('#giatien').val(),
-
-                            }
-
-                            var data_bang_chi_tiet = {
-                                action: 'CH_add_ct_hoa_don',
-                                MaDonHang: mahoadon,
-                                MaSach: mabanh,
-                                SoLuong: $('#soluong').val(),
-                                DonGia: $('#giatien').val(),
-
-                            }
-
-                            $.post(api, data_bang_chi_tiet, function (data) {
-
-                            })
-                            $.post(api, data_bang_hoa_don, function (data) {
-
-                            })
-
-
-                        }
-                    },
-                    cancel: {},
-                },
-            });
-
+        
         }
-
         function mua_sach(sach22) {
             var thongtin_sach_html = "";
             $.confirm({
