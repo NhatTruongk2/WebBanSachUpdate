@@ -855,7 +855,7 @@ $(document).ready(function () {
                 action: "LietKeSach"
             },
             function (data) {
-                var json = JSON.parse(data);
+                var json = JSON.parse(data); // chuyển đổi đối tượng json nhận đc thành javascript
                 var noidung_sach_html = "";
                 if (json.ok) {
                     //noidung_sach_html += `<table  class="table table-hover">`
@@ -979,13 +979,13 @@ $(document).ready(function () {
             }
             var mahoadon = Math.random();
             var user;
-            var json = JSON.parse(data1);
+            var json = JSON.parse(data);
             for (var user of json.data) { }
             var content =
                 `     
           <pre>
                 Chào mưng quý khách
-    Mã Hóa đơn : ${MaHoaDon}
+    Mã Hóa đơn : ${mahoadon}
     Ngày mua   : ${getdate()}
 
 Tên sản phẩm  : ${banh.TenSach}                               <img style="width: 200px; " src="${banh.AnhBia}" />
