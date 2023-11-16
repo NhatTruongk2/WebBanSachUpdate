@@ -458,6 +458,56 @@ $(document).ready(function () {
             }
            
         });
+
+        function chi_tiet(sach22) {
+            $.post(apiURL, {
+                action: "LietKeChuDe" // Sử dụng action "LietKeChuDe" cho chủ đề
+            }, function (data) {
+                var json = JSON.parse(data);
+                var noidung_chude_html = "";
+                if (json.ok) {
+
+                    var noidung_chude_html = '<div class="list-group" style="display: flex; flex-direction: column;">';
+
+                    for (var chude of json.data) {
+
+                        var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach22.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                        mua_them += `<button class=" btn btn-success nut_quay_lai" data-cid="${sach22.MaSach}" data-loai = "quaylai"> Quay lại <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                        noidung_chude_html = `
+           <div style="display: flex; align-items: center; justify-content: center;">
+    <div style="margin-right: 20px;">
+        <img style="width: 200px; height: 300px;" src="${sach22.AnhBia}" alt="${sach22.TenSach}">
+    </div>
+    <div style="text-align: left;">
+        <p class="h2" style="font-weight: bold;">Tên sách: ${sach22.TenSach}</p>
+        <p style="font-weight: bold; color: #007bff; font-size: 18px;">Giá bán: ${sach22.GiaBan}vnđ</p>
+        <p>Ngày cập nhật: ${sach22.NgayCapNhat}</p>
+        <p>Mô tả: ${sach22.MoTa}</p>
+        <p>Số lượng trong kho : ${sach22.SoLuongTon} quyển</p>
+        <p>${mua_them}</p>
+        <!-- Thêm các thông tin sách khác vào đây -->
+    </div>
+</div>
+`;
+                    }
+
+
+                } else {
+                    noidung_chude_html = "Không có dữ liệu";
+                }
+                $('#danhmucsach').html(noidung_chude_html);
+
+                $('.nut_quay_lai').click(function () {
+
+                    window.location.href = 'nguoidung.html';
+                }
+                );
+            });
+
+
+
+        }
+
         function mua_sach(sach22) {
             var thongtin_sach_html = "";
             $.confirm({
