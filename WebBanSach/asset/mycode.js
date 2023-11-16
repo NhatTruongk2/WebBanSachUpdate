@@ -332,7 +332,7 @@ $(document).ready(function () {
         <p style="font-weight: bold; width: 150px;">Đã thanh toán: <input type="text" id="daThanhToanInput" value="${sach22.DaThanhToan}"></p>
         <p style="width: 150px;">Tình trạng giao hàng: <input type="text" id="tinhTrangGiaoHangInput" value="${sach22.TinhTrangGiaoHang}"></p>
         <p style="width: 150px;">Ngày đặt: <input type="text" id="ngayDatInput" value="${sach22.NgayDat}"></p>
-                <p style="width: 150px;">Ngày giao: <input type="text" id="ngayGiao" value="${sach22.NgayGiao}"></p>
+                <p style="width: 150px;">Ngày giao: <input type="text" id="ngayGiaoInput" value="${sach22.NgayGiao}"></p>
 
 
         <p style="width: 150px;">Mã khách hàng: <input type="text" id="maKHInput" value="${sach22.MaKH}"></p>
@@ -406,7 +406,210 @@ $(document).ready(function () {
 
     });
 
+    $('.chontacgia').click(function () {
+        var apiURL = 'api_tacgia.aspx';
+        $.post(apiURL, {
+            action: 'LietKeTacGia',
 
+        }, function (data) {
+            // Xử lý dữ liệu sau khi nhận được từ API
+            console.log(data); // In dữ liệu lấy được từ API vào console
+            var json = JSON.parse(data);
+            var noidung_sach_html = "";
+            // Sử dụng hàm confirm để hiển thị dữ liệu lấy được từ API
+            if (json.ok) {
+                
+                noidung_sach_html += `<table  class="table table-hover">`
+                noidung_sach_html += `<thead>
+                    <tr>    
+                    <th>  STT   </th>
+                    <th> Mã Tác giả     </th>
+                  
+                    <th>  Tên tác giả   </th>
+                    <th>   Địa chỉ  </th>
+      
+                    <th>  Tiểu sử   </th>
+                    <th>  Điện thoại   </th>
+                 
+                    </tr>
+                    </thead>`
+                var STT = 0;
+                for (var tacgia of json.data) {
+
+                    
+
+
+
+                    var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${tacgia.matacgia}" data-loai = "mua">Sửa <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>`;
+
+                    mua_them += `        <button class="btn btn-danger nut_mua_them" data-cid="${tacgia.matacgia}" data-loai = "xoa">Xóa <i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>`
+
+                    noidung_sach_html += `
+                         <tr>
+                        <th>  ${++STT}    </th>
+                        <th>${tacgia.matacgia}</th>
+                     <th>${tacgia.tentacgia}</th>
+                     <th>${tacgia.diachi}</th>
+                     <th>${tacgia.tieusu}</th>
+
+                     <th>${tacgia.dienthoai}</th>
+                    
+                       
+                        <th>${mua_them}</th>
+       
+                        </tr>`;
+                }
+
+                $('.hienthithongtin').html(noidung_sach_html);
+                console.log(json.data);
+                console.log(data);
+
+
+                $('.nut_mua_them').click(function () {
+                    var loai = $(this).data('loai');
+                    var id = $(this).data('cid');
+
+                    if (loai == 'xoa') { // Kiểm tra nút được nhấn có loại là 'xoa' hay không
+                        for (var sach2 of json.data) {
+                            if (sach2.matacgia == id) {
+                                xoa_tacgia(sach2); // Gọi hàm xoa_sach khi nút "Xóa" được nhấn
+                                break;
+                            }
+                        }
+                    } else {
+                        for (var sach2 of json.data) {
+                            if (sach2.matacgia == id) {
+                                sua_tacgia(sach2);
+                                break;
+                            }
+                        }
+                    }
+                });
+
+
+            }
+
+        });
+
+        function xoa_tacgia(sach2) {
+            $.confirm({
+                title: 'Bạn có muốn xóa không?',
+                content: '     ',
+                buttons: {
+                    mua: {
+                        text: 'OK',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.post('api_tacgia.aspx', {
+                                action: 'XoaTacGia',
+                                matacgia: sach2.matacgia // Truyền ID của sách cần xóa
+                            })
+                                .done(function (data) {
+                                    console.log('Sách đã bị xóa:', data);
+                                    // Thực hiện các hành động sau khi xóa thành công (nếu cần)
+                                })
+                                .fail(function (error) {
+                                    console.error('Lỗi khi xóa sách:', error);
+                                    // Xử lý khi xóa sách thất bại (nếu cần)
+                                });
+                        }
+                    },
+                    huy: {
+                        text: 'KHUM',
+                        btnClass: 'btn-green',
+                        action: function () {
+                            // Xử lý khi nhấn nút "Hủy"
+                        }
+                    }
+                },
+                columnClass: 'large'
+            });
+        }
+
+
+        function sua_tacgia(sach22) {
+            var thongtin_sach_html = "";
+            $.confirm({
+                title: '<h2 > CẬP NHẬT THÔNG TIN </h2>',
+                content: thongtin_sach_html += `
+<div style="display: flex; align-items: center; justify-content: center; margin: 20px;">
+  
+    <div style="text-align: left; display: flex; flex-direction: column;">
+     <p style="font-weight: bold; width: 150px;">Mã tác giả: <input type="text" id="maTacGiaInput" value="${sach22.matacgia}"></p>
+        <p style="font-weight: bold; width: 150px;">Tên tác giả: <input type="text" id="tenTacGiaInput" value="${sach22.tentacgia}"></p>
+        <p style="width: 150px;">Địa chỉ: <input type="text" id="diaChiInput" value="${sach22.diachi}"></p>
+        <p style="width: 150px;">Tiểu sử: <input type="text" id="tieuSuInput" value="${sach22.tieusu}"></p>
+                <p style="width: 150px;">Điện thoại: <input type="text" id="dienThoaiInput" value="${sach22.dienthoai}"></p>
+
+
+
+    </div>
+</div>`,
+
+                buttons: {
+                    mua: {
+                        text: 'Sửa',
+                        btnClass: 'btn-green',
+
+                        action: function () {
+                            // Collect the updated values from the input fields
+                            var maTacGia = $('#maTacGiaInput').val();
+                            var tenTacGia = $('#tenTacGiaInput').val();
+                            var diaChi = $('#diaChiInput').val();
+                            var tieuSu = $('#tieuSuInput').val();
+                            var dienThoai = $('#dienThoaiInput').val();
+                            
+
+
+
+                            var data = {
+                                matacgia: maTacGia,
+                                tentacgia: tenTacGia,
+                                diachi: diaChi,
+                                tieusu: tieuSu,
+                                dienthoai: dienThoai,
+                               
+
+                            };
+
+                            $.post(apiURL, {
+                                action: 'SuaTacGia',
+                                matacgia: $('#maTacGia').val(),
+                                tentacgia: $('#tenTacGia').val(),
+                                diachi: $('#diaChi').val(),
+                                tieusu: $('#tieuSu').val(),
+                                dienthoai: $('#dienThoai').val(),
+                                
+
+                            }, function (data) {
+                                // Xử lý kết quả trả về từ API
+                                console.log("Dữ liệu từ API:", data);
+                            }).fail(function (error) {
+                                // Xử lý lỗi trong quá trình yêu cầu API
+                                console.error("Lỗi:", error);
+                            });
+
+                            // Do something with the collected data
+
+                            // ... Handle the data accordingly
+                        }
+                    },
+                    huy: {
+                        text: 'Thoát',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            // Xử lý khi nhấn nút "Hủy"
+                        }
+                    }
+
+                },
+                columnClass: 'large'
+            });
+        }
+
+
+
+    });
 
     $(".chonnguoidung").click(function () {
         var apiURL = 'api_tacgia.aspx';
