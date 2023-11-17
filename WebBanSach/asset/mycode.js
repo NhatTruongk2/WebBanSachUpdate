@@ -1114,7 +1114,6 @@ $(document).ready(function () {
         });
     });
 
-
     $(".themtaikhoan").click(function () {
 
         var contentdangky = `
@@ -1367,8 +1366,6 @@ $(document).ready(function () {
         });
     });
 
-
-
     $("#giohang").click(function () {
         // Thêm xử lý của bạn tại đây, ví dụ: mở trang giỏ hàng hoặc thực hiện các tác vụ khác
         $.confirm({
@@ -1377,7 +1374,6 @@ $(document).ready(function () {
 
         });
     });
-
 
     function list_sach() {
         const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
@@ -1557,9 +1553,7 @@ $(document).ready(function () {
         }
 
     }
-
     list_sach();
-
 
     function list_chude() {
         const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
@@ -1589,12 +1583,8 @@ $(document).ready(function () {
         });
 
     }
-
     // Gọi hàm list_chude() để lấy dữ liệu chủ đề từ API
     list_chude();
-
-
-
 
     function list_tacgia() {
         const apiURL = 'api_tacgia.aspx'; // Đường dẫn đến API của bạn
@@ -1628,11 +1618,6 @@ $(document).ready(function () {
 
     // Gọi hàm list_chude() để lấy dữ liệu chủ đề từ API
     list_tacgia();
-
-
-
-
-
 
 });
 
