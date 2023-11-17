@@ -1469,7 +1469,7 @@ $(document).ready(function () {
                     for (var chude of json.data) {
                        
                         var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach22.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
-                        mua_them += `<button class=" btn btn-success nut_quay_lai" data-cid="${sach22.MaSach}" data-loai = "quaylai"> Quay lại <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
+                        mua_them += `   <button class=" btn btn-success nut_quay_lai" data-cid="${sach22.MaSach}" data-loai = "quaylai"> Quay lại <i class="fa-solid fa-rotate-left" style="color: #ffffff;"></i></button>`
                         noidung_chude_html = `
            <div style="display: flex; align-items: center; justify-content: center;">
     <div style="margin-right: 20px;">
