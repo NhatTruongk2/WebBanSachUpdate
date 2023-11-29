@@ -823,7 +823,6 @@ $(document).ready(function () {
             var thongtintimkiem = "";
             // Sử dụng hàm confirm để hiển thị dữ liệu lấy được từ API
             if (json.ok) {
-               
                 for (var sach of json.data) {
                     var mua_them = `<button class=" btn btn-success nut_mua_them" data-cid="${sach.MaSach}" data-loai = "mua">Mua <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i></button>`
                     mua_them += `    <button class=" btn btn-primary nut_mua_them" data-cid="${sach.MaSach}" data-loai = "xoa">Chi tiết  </button>`

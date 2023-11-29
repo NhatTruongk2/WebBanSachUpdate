@@ -346,17 +346,9 @@ namespace WebBanSach
               
                 // các action dùng cho sách
                 case "LietKeSach": 
-                    Sach(action);    
-                    break;
                 case "TimKiemSach":
-                    Sach(action);
-                    break;
                 case "SuaSach":
-                    Sach(action);
-                    break;
                 case "XoaSach":
-                    Sach(action);
-                    break;
                 case "ThemSach":
                     Sach(action);
                     break;
@@ -370,44 +362,27 @@ namespace WebBanSach
 
 
                 case "LietKeTacGia":
+                case "ThemTacGia":
                     TacGia(action);
                     break;
 
 
-                    //các action dùng cho khách hàng
+                //các action dùng cho khách hàng
 
                 case "LietKeKhachHang":
-                    KhachHang(action);
-                    break;
                 case "ThemKhachHang":
-                    KhachHang(action);
-                    break;
                 case "SuaKhachHang":
-                    KhachHang(action);
-                    break;
                 case "XoaKhachHang":
-                    KhachHang(action);
-                    break;
                 case "TimKiemKhachHang":
-                    KhachHang(action);
-                    break;
                 case "DangNhap":
                     KhachHang(action);
                     break;
 
                 //các action dùng cho chi tiết đơn hàng
                 case "ThemDonHang":
-                    DonHang(action);
-                    break;
                 case "SuaDonHang":
-                    DonHang(action);
-                    break;
                 case "XoaDonHang":
-                    DonHang(action);
-                    break;
                 case "TimKiemDonHang":
-                    DonHang(action);
-                    break;
                 case "LietKeDonHang":
                     DonHang(action);
                     break;
@@ -415,17 +390,9 @@ namespace WebBanSach
 
                 // Các action dùng cho chi tiết đơn hàng
                 case "ThemChiTietDonHang":
-                    ChiTietDonHang(action);
-                    break;
                 case "SuaChiTietDonHang":
-                    ChiTietDonHang(action);
-                    break;
                 case "XoaChiTietDonHang":
-                    ChiTietDonHang(action);
-                    break;
                 case "TimKiemChiTietDonHang":
-                    ChiTietDonHang(action);
-                    break;
                 case "LietKeChiTietDonHang":
                     ChiTietDonHang(action);
                     break;
